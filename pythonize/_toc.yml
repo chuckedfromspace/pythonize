@@ -1,0 +1,9 @@
+# Table of contents
+- file: intro
+
+- part: Finance
+  chapters:
+  - file: finance/portfolio_management
+    sections:
+      - file: finance/net_worth
+      - file: finance/performance
