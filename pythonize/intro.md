@@ -1,4 +1,4 @@
-# "Pythonize" data crunching and visualization
+# Introduction
 
 After years of using Python for handling various kinds of data (e.g., with `numpy`, `pandas`, and `scipy`) and making plots (primarily for scientific publications with `matplotlib` and more recently `plotly`),
 I have accumulated quite a bit of tips and tricks for data crunching and visualization.
