@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio Management &#8212; Pythonize Data Crunching and Visualization</title>
+    <title>Flow Field Visualization &#8212; Pythonize Data Crunching and Visualization</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -59,8 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Net Worth" href="net_worth.html" />
-    <link rel="prev" title="References" href="../fluids/refs_f.html" />
+    <link rel="next" title="Precessing Vortex Core (Part 1)" href="pvc_p1.html" />
+    <link rel="prev" title="Introduction" href="../intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -100,14 +100,14 @@
   Fluid Dynamics
  </span>
 </p>
-<ul class="nav sidenav_l1">
- <li class="toctree-l1 collapsible-parent">
-  <a class="reference internal" href="../fluids/flow_field_vis.html">
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="current reference internal" href="#">
    Flow Field Visualization
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="../fluids/pvc_p1.html">
+    <a class="reference internal" href="pvc_p1.html">
      Precessing Vortex Core (Part 1)
     </a>
    </li>
@@ -116,7 +116,7 @@
   </i>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../fluids/refs_f.html">
+  <a class="reference internal" href="refs_f.html">
    References
   </a>
  </li>
@@ -126,19 +126,19 @@
   Finance
  </span>
 </p>
-<ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active collapsible-parent">
-  <a class="current reference internal" href="#">
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../finance/portfolio_management.html">
    Portfolio Management
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
-    <a class="reference internal" href="net_worth.html">
+    <a class="reference internal" href="../finance/net_worth.html">
      Net Worth
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="performance.html">
+    <a class="reference internal" href="../finance/performance.html">
      Performance
     </a>
    </li>
@@ -186,7 +186,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/finance/portfolio_management.md"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/fluids/flow_field_vis.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
@@ -206,10 +206,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/chuckedfromspace/pythonize/issues/new?title=Issue%20on%20page%20%2Ffinance/portfolio_management.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/chuckedfromspace/pythonize/issues/new?title=Issue%20on%20page%20%2Ffluids/flow_field_vis.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/chuckedfromspace/pythonize/edit/main/pythonize/finance/portfolio_management.md"><button
+        <a class="edit-button" href="https://github.com/chuckedfromspace/pythonize/edit/main/pythonize/fluids/flow_field_vis.md"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -236,17 +236,15 @@
         
               <div>
                 
-  <div class="section" id="portfolio-management">
-<h1>Portfolio Management<a class="headerlink" href="#portfolio-management" title="Permalink to this headline">¶</a></h1>
-<p>In the process of migrating from spreadsheets to Python for managing investment portfolios,
-I discovered <code class="docutils literal notranslate"><span class="pre">plotly</span></code> as an easy tool for generating interactive plots with rich information.
-The plots I created for my personal portfolio manager are recreated in the following Jupyter
-notebooks with mock data.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The stock positions provided in the following notebooks are purely for demonstrative purposes and
-are by no means investment advices.</p>
-</div>
+  <div class="section" id="flow-field-visualization">
+<h1>Flow Field Visualization<a class="headerlink" href="#flow-field-visualization" title="Permalink to this headline">¶</a></h1>
+<p>As one of my research focuses, I work extensively with experimental and
+analytical methods for visualizing and understanding turbulent (reacting)
+flows. On the experimental side, I use techniques such as <a class="reference external" href="https://en.wikipedia.org/wiki/Particle_image_velocimetry">particle image velocimetry (PIV)</a>
+and laser <a class="reference external" href="https://en.wikipedia.org/wiki/Shadowgraph">shadowgraphy</a> to visualize (multiphase) flow fields. On the analytical side, I use <a class="reference external" href="https://en.wikipedia.org/wiki/Principal_component_analysis">principle component analysis (PCA)</a> and some of its variants (such as my own little adaptation <a class="reference external" href="https://github.com/chuckedfromspace/mrpod">MRPOD</a>) to carry out (multi-scale)
+pattern recognition for identifying important dynamical structures in the flow field.</p>
+<p>I’ll start this chapter by demonstrating how to synthesize typical flow field dynamics, before
+going on to show how PCA is commonly used for extracting flow field patterns.</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -264,7 +262,7 @@ are by no means investment advices.</p>
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./finance"
+            path: "./fluids"
         },
         predefinedOutput: true
     }
@@ -279,8 +277,8 @@ are by no means investment advices.</p>
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../fluids/refs_f.html" title="previous page">References</a>
-    <a class='right-next' id="next-link" href="net_worth.html" title="next page">Net Worth</a>
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Introduction</a>
+    <a class='right-next' id="next-link" href="pvc_p1.html" title="next page">Precessing Vortex Core (Part 1)</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
