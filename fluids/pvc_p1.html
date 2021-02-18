@@ -308,7 +308,7 @@
 </div>
 </div>
 <p>Now we can use this function to create the two stationary modes by combining multiple Gaussians inside the rectangle confinement:</p>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
 <span class="k">def</span> <span class="nf">pvc_1</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fac_x</span><span class="o">=</span><span class="mf">0.951662</span><span class="p">,</span> <span class="n">fac_y</span><span class="o">=</span><span class="mf">0.9222</span><span class="p">):</span>
@@ -428,29 +428,7 @@
 </div>
 </div>
 <p>Similarly, we can plot the second mode <code class="docutils literal notranslate"><span class="pre">pvc_2()</span></code>:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># NO CODE</span>
-<span class="c1"># define the grid</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">)</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-
-<span class="c1"># vector plot</span>
-<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">v_array</span> <span class="o">=</span> <span class="n">pvc_2</span><span class="p">()</span>
-<span class="n">v_x</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
-<span class="n">v_y</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
-<span class="n">vskip</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">Y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">v_x</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span>
-          <span class="n">v_y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\Im(\Phi)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="../_images/pvc_p1_11_0.png" src="../_images/pvc_p1_11_0.png" />
 </div>
