@@ -6,6 +6,7 @@
   - file: fluids/flow_field_vis
     sections:
       - file: fluids/pvc_p1
+      - file: fluids/pvc_p2
   - file: fluids/refs_f
 
 - part: Finance
