@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Precessing Vortex Core (Part 1) &#8212; Pythonize Data Crunching and Visualization</title>
+    <title>Precessing Vortex Core (Part 2) &#8212; Pythonize Data Crunching and Visualization</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -59,8 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Precessing Vortex Core (Part 2)" href="pvc_p2.html" />
-    <link rel="prev" title="Flow Field Visualization" href="flow_field_vis.html" />
+    <link rel="next" title="References" href="refs_f.html" />
+    <link rel="prev" title="Precessing Vortex Core (Part 1)" href="pvc_p1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -106,13 +106,13 @@
    Flow Field Visualization
   </a>
   <ul class="current collapse-ul">
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
+   <li class="toctree-l2">
+    <a class="reference internal" href="pvc_p1.html">
      Precessing Vortex Core (Part 1)
     </a>
    </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="pvc_p2.html">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
      Precessing Vortex Core (Part 2)
     </a>
    </li>
@@ -191,7 +191,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/fluids/pvc_p1.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/fluids/pvc_p2.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -211,10 +211,10 @@
                 data-toggle="tooltip" data-placement="left" title="Source repository"><i
                     class="fab fa-github"></i>repository</button></a>
         <a class="issues-button"
-            href="https://github.com/chuckedfromspace/pythonize/issues/new?title=Issue%20on%20page%20%2Ffluids/pvc_p1.html&body=Your%20issue%20content%20here."><button
+            href="https://github.com/chuckedfromspace/pythonize/issues/new?title=Issue%20on%20page%20%2Ffluids/pvc_p2.html&body=Your%20issue%20content%20here."><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
-        <a class="edit-button" href="https://github.com/chuckedfromspace/pythonize/edit/main/pythonize/fluids/pvc_p1.ipynb"><button
+        <a class="edit-button" href="https://github.com/chuckedfromspace/pythonize/edit/main/pythonize/fluids/pvc_p2.ipynb"><button
                 type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
                 title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
     </div>
@@ -240,13 +240,33 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#create-stationary-modes">
-   Create stationary modes
+  <a class="reference internal nav-link" href="#re-create-pvc-vortices">
+   Re-create PVC vortices
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#create-pvc-animation">
-   Create PVC animation
+  <a class="reference internal nav-link" href="#create-1-d-velocity-profiles">
+   Create 1-D velocity profiles
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-2-d-velocity-fields">
+   Create 2-D velocity fields
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combine-with-pvc">
+   Combine with PVC
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#create-animation">
+   Create animation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#conclusions">
+   Conclusions
   </a>
  </li>
 </ul>
@@ -260,24 +280,18 @@
         
               <div>
                 
-  <div class="section" id="precessing-vortex-core-part-1">
-<h1>Precessing Vortex Core (Part 1)<a class="headerlink" href="#precessing-vortex-core-part-1" title="Permalink to this headline">¶</a></h1>
-<p>Precessing vortex core (PVC) is one of the distinct dynamics in confined turbulent swirling flows <a class="bibtex reference internal" href="refs_f.html#f-gupta-84" id="id1">[F-GLS84]</a>, often encountered in swirl-stabilized gas turbine combustors <a class="bibtex reference internal" href="refs_f.html#f-syred-74" id="id2">[F-SB74]</a>. Check out <a class="bibtex reference internal" href="refs_f.html#f-syred-06" id="id3">[F-Syr06]</a> for a deep dive in the technical details of PVC. Here we will just focus on how to synthesize a 2-D representation of PVC, as is usually captured in the experiment by a standard stereo-PIV. We will be using <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> extensively to plot vector fields and to create a GIF animation of the vortex motion.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The approach adopted here is actually a reverse engineering of PCA of an experimentally observed PVC. See <a class="bibtex reference internal" href="refs_f.html#f-stoehr-11" id="id4">[F-StohrSM11]</a> for an easy-to-follow introduction to PCA (often referred to as POD in the field of fluid dynamics) and its applications to analyzing PVC.</p>
-</div>
-<div class="section" id="create-stationary-modes">
-<h2>Create stationary modes<a class="headerlink" href="#create-stationary-modes" title="Permalink to this headline">¶</a></h2>
-<p>In a 2-D cut plane (such as in planar laser measurement techniques), the 3-D helical structure of PVC is represented as “zigzagging” vortices. In general, to create motion of traveling vortices, at least two stationary “modes” are needed as dictated by:</p>
-<div class="math notranslate nohighlight" id="equation-travel-wave">
-<span class="eqno">(1)<a class="headerlink" href="#equation-travel-wave" title="Permalink to this equation">¶</a></span>\[
-\boldsymbol{v}(x,t)=e^{-iwt}\boldsymbol{\Phi}(x)=\cos wt\cdot\Re(\boldsymbol{\Phi}) + \sin wt\cdot\Im(\boldsymbol{\Phi})
-\]</div>
-<p>So let’s start by creating the two (real) modes <span class="math notranslate nohighlight">\(\Re(\boldsymbol{\Phi})\)</span> and <span class="math notranslate nohighlight">\(\Im(\boldsymbol{\Phi})\)</span>. We start by defining a function that creates a Gaussian shape inside a rectangle (to achieve soft edges). This may sound far-fetched but bear with me for just a moment.</p>
-<div class="cell docutils container">
+  <div class="section" id="precessing-vortex-core-part-2">
+<h1>Precessing Vortex Core (Part 2)<a class="headerlink" href="#precessing-vortex-core-part-2" title="Permalink to this headline">¶</a></h1>
+<p>In this part, we will try to add an average flow field to the <a class="reference internal" href="pvc_p1.html"><span class="doc std std-doc">synthesized flow fields with PVC vortices</span></a>. Once again, some patch work will be necessary to create an “authentic” looking mean flow field as usually found in swirl-stabilized combustors. To achieve this, we will stack Gaussian profiles to create 2-D fields for both velocity components.</p>
+<div class="section" id="re-create-pvc-vortices">
+<h2>Re-create PVC vortices<a class="headerlink" href="#re-create-pvc-vortices" title="Permalink to this headline">¶</a></h2>
+<p>The following are the codes we used previously to create the zig-zagging vortices:</p>
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 
 <span class="k">def</span> <span class="nf">phantomGaussian</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">fwhm</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">offset_x</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a Gaussian shape inside a rectangle&quot;&quot;&quot;</span>
@@ -293,29 +307,8 @@
     <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="o">/</span><span class="n">scale</span><span class="o">-</span><span class="n">offset_x</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y0</span><span class="o">/</span><span class="n">scale</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">fwhm</span><span class="o">/</span><span class="n">scale</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">output</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Let’s see how this function works:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">phantomGaussian</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="mi">60</span><span class="p">,</span> <span class="mi">30</span><span class="p">]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/pvc_p1_3_0.png" src="../_images/pvc_p1_3_0.png" />
-</div>
-</div>
-<p>Now we can use this function to create the two stationary modes by combining multiple Gaussians inside the rectangle confinement:</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDE CODE</span>
+
 <span class="k">def</span> <span class="nf">pvc_1</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fac_x</span><span class="o">=</span><span class="mf">0.951662</span><span class="p">,</span> <span class="n">fac_y</span><span class="o">=</span><span class="mf">0.9222</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a precessing vortex core with spatial shift&quot;&quot;&quot;</span>
     
@@ -345,6 +338,7 @@
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v_y_settings</span><span class="p">:</span>
         <span class="n">v_y</span> <span class="o">+=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">phantomGaussian</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">fwhm</span><span class="o">=</span><span class="n">i</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">center</span><span class="o">=</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="n">R</span><span class="p">,</span> <span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">v_x</span><span class="o">*</span><span class="mf">1.078</span><span class="p">,</span> <span class="n">v_y</span><span class="p">])</span>
+
 
 <span class="k">def</span> <span class="nf">pvc_2</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">R</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">fac_x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fac_y</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Create a precessing vortex core</span>
@@ -380,32 +374,107 @@
 </div>
 </div>
 </div>
-<p>There is a lot of “jerry-rigging” going on in the code above so it is hidden to preserve the aesthetics of this otherwise clean page. Basically, our next goal is to create a 2-D vector field that has two components, <span class="math notranslate nohighlight">\(v_x\)</span> and <span class="math notranslate nohighlight">\(v_y\)</span>, corresponding to the axial and radial directions of the velocity vectors. I had to combine a lot of Gaussian shapes here to mimic the natural look of PVC observed in experiments in gas turbine combustors. I put in additional fudge factors in the first mode <code class="docutils literal notranslate"><span class="pre">pvc_1()</span></code> such that it is “almost” orthogonal to the second mode <code class="docutils literal notranslate"><span class="pre">pvc_2()</span></code> (i.e., the element-wise product of <span class="math notranslate nohighlight">\(v_x\)</span> and <span class="math notranslate nohighlight">\(v_y\)</span> sums to zero). You can play with all the fudge factors to see if you can get a more “orthogonal” combination than I did.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>In swirl flows where PVC can be found, there is usually a strong out-of-plane velocity component <span class="math notranslate nohighlight">\(v_z\)</span>. It is omitted here to simplify the problem.</p>
 </div>
-<p>First we will just check the spatial distributions of the two vector components of <code class="docutils literal notranslate"><span class="pre">pvc_1()</span></code>:</p>
+<div class="section" id="create-1-d-velocity-profiles">
+<h2>Create 1-D velocity profiles<a class="headerlink" href="#create-1-d-velocity-profiles" title="Permalink to this headline">¶</a></h2>
+<p>As the first step, 1-D velocity profiles are synthesized using linear combination of Gaussian lineshapes. The particular shapes of the velocity profiles are based on experimental observations in swirling flows.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pvc_1</span><span class="p">()[</span><span class="mi">0</span><span class="p">,:])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$v_x$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">pvc_1</span><span class="p">()[</span><span class="mi">1</span><span class="p">,:])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$v_y$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">/</span><span class="n">sigma</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">vy_profile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> 
+            <span class="o">+</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="n">sigma2</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">vx_profile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="p">)</span>
+            <span class="o">+</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">sigma1</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> 
+            <span class="o">+</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x1</span><span class="o">-</span><span class="mi">25</span><span class="p">,</span> <span class="n">sigma1</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span> 
+            <span class="o">+</span> <span class="n">gaussian</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x2</span><span class="o">+</span><span class="mi">25</span><span class="p">,</span> <span class="n">sigma1</span><span class="o">*</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="o">*</span><span class="mf">0.5</span><span class="p">))</span>
+
+<span class="c1"># Sample profiles</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vy_profile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;v_y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">vx_profile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">84</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;v_x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;2&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pvc_p2_4_0.png" src="../_images/pvc_p2_4_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="create-2-d-velocity-fields">
+<h2>Create 2-D velocity fields<a class="headerlink" href="#create-2-d-velocity-fields" title="Permalink to this headline">¶</a></h2>
+<p>Next, we can generate many (60 to be exact for each velocity component) such profiles by modifying the peak locations and amplitudes and then stack all of them together to obtain 2-D fields. As done in the following codes for the vertical component <span class="math notranslate nohighlight">\(v_y\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_vy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mi">84</span><span class="p">,</span> <span class="n">c_adjust</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sig1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+              <span class="n">sig1_adjust</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">sig2</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">sig2_adjust</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span>
+              <span class="n">amp1</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">amp1_adjust</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">amp2</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">amp2_adjust</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">vy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">))</span>
+    <span class="k">def</span> <span class="nf">mod_log</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
+        <span class="n">vy</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">vy_profile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c1</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="n">c_adjust</span><span class="p">,</span> <span class="n">c2</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">c_adjust</span><span class="p">,</span>
+                              <span class="n">sig1</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">sig1_adjust</span><span class="p">,</span> <span class="n">sig2</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">sig2_adjust</span><span class="p">,</span>
+                              <span class="n">amp1</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">amp1_adjust</span><span class="p">,</span> <span class="n">amp2</span> <span class="o">+</span> <span class="n">mod_log</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">amp2_adjust</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">vy</span>
+
+<span class="c1"># sample</span>
+<span class="n">vy</span> <span class="o">=</span> <span class="n">create_vy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">vy</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/pvc_p1_7_0.png" src="../_images/pvc_p1_7_0.png" />
+<img alt="../_images/pvc_p2_6_0.png" src="../_images/pvc_p2_6_0.png" />
 </div>
 </div>
-<p>We can make more sense of this mode by presenting it in a vector plot:</p>
+<p>Similarly for <span class="math notranslate nohighlight">\(v_x\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_vx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c1</span><span class="o">=</span><span class="mi">36</span><span class="p">,</span> <span class="n">c2</span><span class="o">=</span><span class="mi">84</span><span class="p">,</span> <span class="n">c_adjust</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">sig1</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+              <span class="n">sig1_adjust</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">amp1</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">amp1_adjust</span><span class="o">=-</span><span class="mf">0.2</span><span class="p">):</span>
+    <span class="n">vx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">60</span><span class="p">,</span> <span class="mi">120</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">60</span><span class="p">):</span>
+        <span class="n">vx</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">vx_profile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">c1</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="n">c_adjust</span><span class="p">,</span> <span class="n">c2</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">c_adjust</span><span class="p">,</span>
+                            <span class="n">sig1</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">sig1_adjust</span><span class="p">,</span> 
+                            <span class="n">amp1</span> <span class="o">+</span> <span class="n">i</span><span class="o">*</span><span class="n">amp1_adjust</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">vx</span>
+
+<span class="n">vx</span> <span class="o">=</span> <span class="n">create_vx</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">flipud</span><span class="p">(</span><span class="n">vx</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pvc_p2_8_0.png" src="../_images/pvc_p2_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="combine-with-pvc">
+<h2>Combine with PVC<a class="headerlink" href="#combine-with-pvc" title="Permalink to this headline">¶</a></h2>
+<p>We can now combine these two components and show the mean flow field using the vector plots as done previously. The flow comes from the bottom (“nozzle”) to the top in the form of tilted “jets” (as indicated by the direction and length of the vectors). In the middle is a so-called recirculation zone, i.e., the flow gets recirculated back from top to bottom. There are two other such recirculations on the left and right corners.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># define the grid</span>
@@ -415,64 +484,45 @@
 
 <span class="c1"># vector plot</span>
 <span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">v_array</span> <span class="o">=</span> <span class="n">pvc_1</span><span class="p">()</span>
-<span class="n">v_x</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
-<span class="n">v_y</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">v_x_avg</span> <span class="o">=</span> <span class="n">create_vx</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">120</span><span class="p">))</span>
+<span class="n">v_y_avg</span> <span class="o">=</span> <span class="n">create_vy</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">120</span><span class="p">))</span>
 <span class="n">vskip</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">Y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">v_x</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span>
-          <span class="n">v_y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">Y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">v_x_avg</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span>
+          <span class="n">v_y_avg</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;$\Re(\Phi)$&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/pvc_p1_9_0.png" src="../_images/pvc_p1_9_0.png" />
+<img alt="../_images/pvc_p2_10_0.png" src="../_images/pvc_p2_10_0.png" />
 </div>
 </div>
-<p>Similarly, we can plot the second mode <code class="docutils literal notranslate"><span class="pre">pvc_2()</span></code>:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="../_images/pvc_p1_11_0.png" src="../_images/pvc_p1_11_0.png" />
-</div>
-</div>
-<p>Again, I made deliberate hand-tweaks to the look of the second mode such that the vortices are spatially displaced relative to the first mode (actually by roughly a quarter of the wavelength). The purpose of this is not only to make this second mode more or less orthogonal to the first one, but also to dictate a specific pattern for the vortices.
-To see this flow pattern in motion, we will need to come back to the Eq. <a class="reference internal" href="#equation-travel-wave">(1)</a>. Here we assume the motion is completely harmonic and its frequency is controlled by <span class="math notranslate nohighlight">\(w\)</span>. If it is not immediately clear that the two stationary modes are shifted in time by a quarter of the period (or by 90° phase angle), we can simply plot out their temporal evolutions as determined by <span class="math notranslate nohighlight">\(\cos wt\)</span> and <span class="math notranslate nohighlight">\(\sin wt\)</span>:</p>
+<p>Now let us add PVC on top of the average fields. For that, we will need to adjust the magnitude of the average fields created here such that the vortices can become visible. It is clear that the PVC vortices significantly modify the mean flow by “bend” the incoming jets.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="o">=</span><span class="mi">470</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">150</span><span class="p">)</span><span class="o">*</span><span class="mf">1e-4</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\Re(\Phi)$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f</span><span class="o">*</span><span class="n">t</span><span class="p">),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$\Im(\Phi)$&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">handletextpad</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">hlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.6e-2</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mf">1.6e-2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">2e-4</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">headlength</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">headwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">),</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-            <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">headlength</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">headwidth</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.62e-2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$t$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.2e-3</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$Amp$&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">])</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">2e-4</span><span class="p">,</span> <span class="mf">1.6e-2</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">v_array</span> <span class="o">=</span> <span class="n">pvc_1</span><span class="p">()</span>
+<span class="n">v_x</span> <span class="o">=</span> <span class="n">v_x_avg</span><span class="o">*</span><span class="mf">0.1</span> <span class="o">+</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">v_y</span> <span class="o">=</span> <span class="n">v_y_avg</span><span class="o">*</span><span class="mf">0.1</span> <span class="o">+</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">vskip</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">Y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">v_x</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span>
+          <span class="n">v_y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/pvc_p1_13_0.png" src="../_images/pvc_p1_13_0.png" />
+<img alt="../_images/pvc_p2_12_0.png" src="../_images/pvc_p2_12_0.png" />
 </div>
 </div>
 </div>
-<div class="section" id="create-pvc-animation">
-<h2>Create PVC animation<a class="headerlink" href="#create-pvc-animation" title="Permalink to this headline">¶</a></h2>
-<p>Now we can combine the two modes we just created and visualize the PVC pattern in an animation and save it in a GIF:</p>
+<div class="section" id="create-animation">
+<h2>Create animation<a class="headerlink" href="#create-animation" title="Permalink to this headline">¶</a></h2>
+<p>We can then use animation to visualize the dynamics of PVC on the mean flow. This can be carried out using the following codes:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
 
 <span class="n">f</span> <span class="o">=</span> <span class="mi">470</span> 
@@ -486,21 +536,25 @@ To see this flow pattern in motion, we will need to come back to the Eq. <a clas
 <span class="n">ims</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">_t</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
     <span class="n">v_array</span> <span class="o">=</span> <span class="n">pvc_1</span><span class="p">()</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f</span><span class="o">*</span><span class="n">_t</span><span class="p">)</span> <span class="o">+</span> <span class="n">pvc_2</span><span class="p">()</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">f</span><span class="o">*</span><span class="n">_t</span><span class="p">)</span>
-    <span class="n">v_x</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>
-    <span class="n">v_y</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">v_x</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">v_x_avg</span><span class="o">*</span><span class="mf">0.1</span>
+    <span class="n">v_y</span> <span class="o">=</span> <span class="n">v_array</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">+</span> <span class="n">v_y_avg</span><span class="o">*</span><span class="mf">0.1</span>
     <span class="n">vskip</span> <span class="o">=</span> <span class="mi">3</span>
     <span class="n">Q</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">X</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">Y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">v_x</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span>
-                    <span class="n">v_y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+                    <span class="n">v_y</span><span class="p">[::</span><span class="n">vskip</span><span class="p">,</span> <span class="p">::</span><span class="n">vskip</span><span class="p">],</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
     <span class="n">ims</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">Q</span><span class="p">])</span>
 
 <span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">ArtistAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">ims</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">150</span><span class="o">/</span><span class="n">f</span><span class="o">*</span><span class="mi">500</span><span class="p">,</span> <span class="n">blit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">ani</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;pvc.gif&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;imagemagick&#39;</span><span class="p">)</span>
+<span class="n">ani</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;swirl.gif&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">writer</span><span class="o">=</span><span class="s1">&#39;imagemagick&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>This is how the flow pattern looks like:</p>
-<a class="reference internal image-reference" href="../_images/pvc.gif"><img alt="../_images/pvc.gif" src="../_images/pvc.gif" style="width: 350px;" /></a>
-<p>Now we have visualized the motion of the vortices, I encourage you to go back and play with the code and see if you can create other kinds of flow patterns following the same idea. Notice that on both sides of the center line the “symmetrically”-distributed vortices rotate in the same direction (either clockwise or counterclockwise). This turns out to be a signature pattern of PVC vortices and can exert a “zig-zag” motion on the flow field. To see this, we will need to add the “mean” flow field, i.e., the part that doesn’t change over time. In PCA, this will usually appear as the most energetic component. In fluid dynamics, the ensemble average of a dataset is therefore often subtracted before a PCA to focus on the dynamic patterns.</p>
+<a class="reference internal image-reference" href="../_images/swirl.gif"><img alt="../_images/swirl.gif" src="../_images/swirl.gif" style="width: 350px;" /></a>
+</div>
+<div class="section" id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Permalink to this headline">¶</a></h2>
+<p>Isn’t the motion somewhat mesmerizing? This “fake” flow field is however not even a close match of what nature has to offer. There is usually a convolution of multiple dynamics occuring on widely different time scales in real swirling flows. We will look at these more closely when I demonstrate how to use PCA and its variants to carry out pattern recognition on this synthesized flow field (and more).</p>
+<p>As mentioned in Part 1, PVC is a 3-D flow structure. In order to reveal its true form, we will see how to perform a 3-D reconstruction of PVC based on the 2-D fields.</p>
 </div>
 </div>
 
@@ -532,8 +586,8 @@ To see this flow pattern in motion, we will need to come back to the Eq. <a clas
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="flow_field_vis.html" title="previous page">Flow Field Visualization</a>
-    <a class='right-next' id="next-link" href="pvc_p2.html" title="next page">Precessing Vortex Core (Part 2)</a>
+    <a class='left-prev' id="prev-link" href="pvc_p1.html" title="previous page">Precessing Vortex Core (Part 1)</a>
+    <a class='right-next' id="next-link" href="refs_f.html" title="next page">References</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
