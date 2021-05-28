@@ -9,6 +9,12 @@
       - file: fluids/pvc_p2
   - file: fluids/refs_f
 
+- part: Machine Learning
+  Chapters:
+  - file: ml/pattern_recognition
+    sections:
+      - file: ml/pca_ae
+
 - part: Finance
   chapters:
   - file: finance/portfolio_management
