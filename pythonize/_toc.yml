@@ -10,7 +10,7 @@
   - file: fluids/refs_f
 
 - part: Machine Learning
-  Chapters:
+  chapters:
   - file: ml/pattern_recognition
     sections:
       - file: ml/pca_ae
