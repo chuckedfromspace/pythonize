@@ -8,7 +8,8 @@ notebooks = glob("../*/*.ipynb", recursive=True)
 text_search_dict = {
     "# HIDDEN": "remove-cell",  # Remove the whole cell
     "# NO CODE": "remove-input",  # Remove only the input
-    "# HIDE CODE": "hide-input"  # Hide the input w/ a button to show
+    "# HIDE CODE": "hide-input",  # Hide the input w/ a button to show
+    "# SCROLL": "output_scroll"
 }
 
 # Search through each notebook and look for the text, add a tag if necessary
