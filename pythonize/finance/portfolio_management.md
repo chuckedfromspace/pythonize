@@ -16,5 +16,5 @@ are by no means investment advices.
 
 | Initiated | Title                                                |
 | --------- | ---------------------------------------------------- |
-| 02.2021   | [Visualize Net Worth](net_worth.ipynb)               |
-| 02.2021   | [Visualize Portfolio Performance](performance.ipynb) |
+| 01.2021   | [Visualize Net Worth](net_worth.ipynb)               |
+| 01.2021   | [Visualize Portfolio Performance](performance.ipynb) |
