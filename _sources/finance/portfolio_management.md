@@ -11,3 +11,10 @@ The stock positions provided in the following notebooks are purely for demonstra
 are by no means investment advices.
 
 ```
+
+## Table of Content
+
+| Initiated | Title                                                |
+| --------- | ---------------------------------------------------- |
+| 01.2021   | [Visualize Net Worth](net_worth.ipynb)               |
+| 01.2021   | [Visualize Portfolio Performance](performance.ipynb) |
