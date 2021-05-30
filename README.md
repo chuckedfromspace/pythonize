@@ -1,6 +1,6 @@
 # Pythonize
 
-Practical data crunching and visualization in Python with `pandas`, `matplotlib`, `plotly` and much more. Please check out the [GitHub page](https://chuckedfromspace.github.io/pythonize/intro.html) for more!
+Practical data crunching and visualization in Python with `tensorflow`, `pandas`, `matplotlib`, `plotly` and much more. Please check out the [GitHub page](https://chuckedfromspace.github.io/pythonize/intro.html) for more!
 
 ## Usage
 
