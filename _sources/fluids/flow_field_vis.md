@@ -8,3 +8,10 @@ pattern recognition for identifying important dynamical structures in the flow f
 
 I'll start this chapter by demonstrating how to synthesize typical flow field dynamics, before
 going on to show how PCA is commonly used for extracting flow field patterns.
+
+## Table of Content
+
+| Initiated | Title                                           |
+| --------- | ----------------------------------------------- |
+| 02.2021   | [Precessing Vortex Core (Part 1)](pvc_p1.ipynb) |
+| 02.2021   | [Precessing Vortex Core (Part 2)](pvc_p2.ipynb) |

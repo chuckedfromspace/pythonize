@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PCA Autoencoder (Part I) &#8212; Pythonize Data Crunching and Visualization</title>
+    <title>PCA Autoencoder (Part 1) &#8212; Pythonize Data Crunching and Visualization</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -139,7 +139,7 @@
   <ul class="current collapse-ul">
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     PCA Autoencoder (Part I)
+     PCA Autoencoder (Part 1)
     </a>
    </li>
   </ul>
@@ -330,8 +330,8 @@
         
               <div>
                 
-  <div class="section" id="pca-autoencoder-part-i">
-<h1>PCA Autoencoder (Part I)<a class="headerlink" href="#pca-autoencoder-part-i" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="pca-autoencoder-part-1">
+<h1>PCA Autoencoder (Part 1)<a class="headerlink" href="#pca-autoencoder-part-1" title="Permalink to this headline">¶</a></h1>
 <p>An <a class="reference external" href="https://arxiv.org/abs/1904.01277">interesting work</a> by Ladjal et al on autoencoders has been brought to my attention by one of my colleagues, as we are trying to leverage the nonlinearity of autoencoders to better decompose complex turbulent reacting flows. As stated in the abstract, the main goal was to improve the interpretability of autoencoder by (1) constructing the latent space of the autoencoder with independent components that are (2) ordered by decreasing importance to the data (both are automatically achieved with a linear Principal Component Analysis). To achieve (1), the authors proposed to minimize the covariance of the latent codes alongside the standard loss function. The covariance term can be written as (based on Eq.1 in the paper):</p>
 <div class="math notranslate nohighlight">
 \[

@@ -59,7 +59,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PCA Autoencoder (Part I)" href="pca_ae.html" />
+    <link rel="next" title="PCA Autoencoder (Part 1)" href="pca_ae.html" />
     <link rel="prev" title="References" href="../fluids/refs_f.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -139,7 +139,7 @@
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="pca_ae.html">
-     PCA Autoencoder (Part I)
+     PCA Autoencoder (Part 1)
     </a>
    </li>
   </ul>
@@ -255,6 +255,20 @@
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
         
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#table-of-content">
+   Table of Content
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
     </div>
 </div>
     <div id="main-content" class="row">
@@ -264,8 +278,23 @@
                 
   <div class="section" id="pattern-recognition">
 <h1>Pattern Recognition<a class="headerlink" href="#pattern-recognition" title="Permalink to this headline">¶</a></h1>
-<p>As a necessity of analyzing experimental data taken in turbulent flows, I have been working with various analytical and numerical tools for extracting important flow patterns.</p>
+<p>As a necessity of analyzing experimental data taken in turbulent flows, I have been working with various analytical and numerical tools for extracting important flow patterns. The most common one I use is Proper Orthogonal Decomposition (POD), also known as Principal Component Analysis (PCA) in Machine Learning.  Besides dimensional reduction, POD/PCA works great for extracting abstract representations of so-called coherent structures in the flow field that fluctuate periodically in a way resembling harmonic motions. However, due to its linear nature, POD/PCA is not always capable or efficient at capturing non-linear flow phenomena that are sporadic and chaotic. Increasingly, neural-network based unsupervised (or self-supervised) methods such as autoencoder have been adapted to tackle these problems in the field of fluid dynamics.</p>
+<div class="section" id="table-of-content">
+<h2>Table of Content<a class="headerlink" href="#table-of-content" title="Permalink to this headline">¶</a></h2>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Initiated</p></th>
+<th class="head"><p>Title</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>05.2021</p></td>
+<td><p><a class="reference internal" href="pca_ae.html"><span class="doc std std-doc">PCA Autoencoder (Part 1)</span></a></p></td>
+</tr>
+</tbody>
+</table>
 <div class="toctree-wrapper compound">
+</div>
 </div>
 </div>
 
@@ -298,7 +327,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="../fluids/refs_f.html" title="previous page">References</a>
-    <a class='right-next' id="next-link" href="pca_ae.html" title="next page">PCA Autoencoder (Part I)</a>
+    <a class='right-next' id="next-link" href="pca_ae.html" title="next page">PCA Autoencoder (Part 1)</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
