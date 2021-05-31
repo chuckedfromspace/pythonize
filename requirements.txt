@@ -2,4 +2,5 @@ jupyter-book
 matplotlib
 numpy
 plotly
+tensorflow
 ghp-import
