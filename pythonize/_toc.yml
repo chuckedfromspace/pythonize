@@ -14,6 +14,7 @@
   - file: ml/pattern_recognition
     sections:
       - file: ml/pca_ae
+      - file: ml/pca_ae_rotation
 
 - part: Finance
   chapters:
