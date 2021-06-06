@@ -59,7 +59,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Portfolio Management" href="../finance/portfolio_management.html" />
+    <link rel="next" title="PCA Autoencoder (Part 2)" href="pca_ae_rotation.html" />
     <link rel="prev" title="Pattern Recognition" href="pattern_recognition.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -140,6 +140,11 @@
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      PCA Autoencoder (Part 1)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pca_ae_rotation.html">
+     PCA Autoencoder (Part 2)
     </a>
    </li>
   </ul>
@@ -412,7 +417,7 @@
 <img alt="../_images/pca_ae_6_0.png" src="../_images/pca_ae_6_0.png" />
 </div>
 </div>
-<p>As can be seen, the ellipses have essentially two degrees of freedom (horizontal and vertical axes). Ideally, a latent space containing two codes in the autoencoder should suffice to capture these two main features in the dataset. Let’s see what a traditional CNN-autoencoder could do.</p>
+<p>As can be seen, the ellipses have essentially two degrees of freedom (horizontal and vertical axes). Ideally, a latent space containing two codes in the autoencoder should suffice to capture these two main features in the dataset.</p>
 </div>
 </div>
 <div class="section" id="pca-autoencoder">
@@ -4723,7 +4728,7 @@ Epoch 00568: early stopping
 <img alt="../_images/pca_ae_28_1.png" src="../_images/pca_ae_28_1.png" />
 </div>
 </div>
-<p>It is clear that without minimizing the covariance losses, the standard autoencoder is not able to separate the features in the datasets.</p>
+<p>It is clear that without minimizing the covariance losses, the standard autoencoder is not able to separate the features contained in the datasets in its latent space. The results are also less reproducible as they can change significantly from run to run (which is a main drawback of autoencoder vs PCA, that the solutions are not unique).</p>
 </div>
 </div>
 
@@ -4756,7 +4761,7 @@ Epoch 00568: early stopping
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="pattern_recognition.html" title="previous page">Pattern Recognition</a>
-    <a class='right-next' id="next-link" href="../finance/portfolio_management.html" title="next page">Portfolio Management</a>
+    <a class='right-next' id="next-link" href="pca_ae_rotation.html" title="next page">PCA Autoencoder (Part 2)</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

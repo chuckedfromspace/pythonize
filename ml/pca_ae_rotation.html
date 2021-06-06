@@ -1,0 +1,2345 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PCA Autoencoder (Part 2) &#8212; Pythonize Data Crunching and Visualization</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.40e2e510f6b7d1648584402491bb10fe.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/tabs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Portfolio Management" href="../finance/portfolio_management.html" />
+    <link rel="prev" title="PCA Autoencoder (Part 1)" href="pca_ae.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">Pythonize Data Crunching and Visualization</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Fluid Dynamics
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../fluids/flow_field_vis.html">
+   Flow Field Visualization
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fluids/pvc_p1.html">
+     Precessing Vortex Core (Part 1)
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../fluids/pvc_p2.html">
+     Precessing Vortex Core (Part 2)
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../fluids/refs_f.html">
+   References
+  </a>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Machine Learning
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active collapsible-parent">
+  <a class="reference internal" href="pattern_recognition.html">
+   Pattern Recognition
+  </a>
+  <ul class="current collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="pca_ae.html">
+     PCA Autoencoder (Part 1)
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     PCA Autoencoder (Part 2)
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+<p class="caption collapsible-parent">
+ <span class="caption-text">
+  Finance
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1 collapsible-parent">
+  <a class="reference internal" href="../finance/portfolio_management.html">
+   Portfolio Management
+  </a>
+  <ul class="collapse-ul">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../finance/net_worth.html">
+     Net Worth
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../finance/performance.html">
+     Performance
+    </a>
+   </li>
+  </ul>
+  <i class="fas fa-chevron-down">
+  </i>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/ml/pca_ae_rotation.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+        <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/chuckedfromspace/pythonize"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        <a class="issues-button"
+            href="https://github.com/chuckedfromspace/pythonize/issues/new?title=Issue%20on%20page%20%2Fml/pca_ae_rotation.html&body=Your%20issue%20content%20here."><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Open an issue"><i class="fas fa-lightbulb"></i>open issue</button></a>
+        <a class="edit-button" href="https://github.com/chuckedfromspace/pythonize/edit/main/pythonize/ml/pca_ae_rotation.ipynb"><button
+                type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip" data-placement="left"
+                title="Edit this page"><i class="fas fa-pencil-alt"></i>suggest edit</button></a>
+    </div>
+</div>
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#synthesize-dataset">
+   Synthesize dataset
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup">
+     Setup
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#phantom-binary-ellipses">
+     Phantom binary ellipses
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pca-autoencoder">
+   PCA Autoencoder
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#covariance-loss">
+     Covariance loss
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#check-the-results">
+     Check the results
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="pca-autoencoder-part-2">
+<h1>PCA Autoencoder (Part 2)<a class="headerlink" href="#pca-autoencoder-part-2" title="Permalink to this headline">¶</a></h1>
+<p>In this second part, we will look at a similar dataset of ellipses but with added rotation. The number of latent codes will be increased to 3. The custom layer for computing covariance loss will be adapted to account for three codes. The method used here will deviate from the original paper, since I won’t be introducing the hierarchical autoencoders just yet. Instead, I will just rely solely on the covariance loss to make the latent codes distinct from each other. The goal is to have them each capture a single degree of freedom (width, height and rotation).</p>
+<div class="section" id="synthesize-dataset">
+<h2>Synthesize dataset<a class="headerlink" href="#synthesize-dataset" title="Permalink to this headline">¶</a></h2>
+<p>In addition to width and heights, the ellipses will be rotated randomly between 0 and <span class="math notranslate nohighlight">\(\pi/2\)</span>. For that I will just use the <code class="docutils literal notranslate"><span class="pre">skimage</span></code> library.</p>
+<div class="section" id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="nn">skimage.transform</span> <span class="kn">import</span> <span class="n">rotate</span>
+
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="phantom-binary-ellipses">
+<h3>Phantom binary ellipses<a class="headerlink" href="#phantom-binary-ellipses" title="Permalink to this headline">¶</a></h3>
+<p>I will use the same image dimension (64, 64) as in Part 1, with a batch size of 500, and a sample size of 8000 to get 16 minibatches per epoch.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">phantomEllipse</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">ang</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">n</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">R</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">R</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">img</span><span class="p">[</span><span class="n">img</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">img</span><span class="p">[</span><span class="n">img</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">rotate</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">ang</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I will increase the sample size of dataset, as it produced more consistent results during my test.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">n</span> <span class="o">=</span> <span class="mi">64</span>
+<span class="n">num_batch</span> <span class="o">=</span> <span class="mi">32</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">num_batch</span> <span class="o">*</span> <span class="n">batch_size</span><span class="p">)</span>
+<span class="n">random_gen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">random_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">random_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">ang</span> <span class="o">=</span> <span class="n">random_gen</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">phantomEllipse</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">_a</span><span class="p">,</span> <span class="n">_b</span><span class="p">,</span> <span class="n">_ang</span><span class="p">)</span> <span class="k">for</span> <span class="n">_a</span><span class="p">,</span> <span class="n">_b</span><span class="p">,</span> <span class="n">_ang</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">ang</span><span class="p">)])</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at a sample of 8 images from the dataset:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">frames</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">...</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pca_ae_rotation_7_0.png" src="../_images/pca_ae_rotation_7_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="pca-autoencoder">
+<h2>PCA Autoencoder<a class="headerlink" href="#pca-autoencoder" title="Permalink to this headline">¶</a></h2>
+<p>The PCA autoencoder from Part 1 will be modified to contain 3 latent codes. The covariance loss layer will be adjusted as below.</p>
+<div class="section" id="covariance-loss">
+<h3>Covariance loss<a class="headerlink" href="#covariance-loss" title="Permalink to this headline">¶</a></h3>
+<p>Notice that I opted to “hard code” the covariance term in the custom layer to better demonstrate the process. A general custom layer could be easily written for any given size of the latent space. I will also add a metric to monitor the value of this covariance loss during training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LatentCovarianceLayer</span><span class="p">(</span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Layer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">=</span> <span class="n">lam</span>
+    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">code_0</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">code_1</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="n">code_2</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">covariance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lam</span> <span class="o">*</span> <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">code_0</span><span class="p">,</span> <span class="n">code_1</span><span class="p">)</span><span class="o">+</span>
+                                                    <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">code_0</span><span class="p">,</span> <span class="n">code_2</span><span class="p">)</span><span class="o">+</span>
+                                                    <span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">code_1</span><span class="p">,</span> <span class="n">code_2</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_loss</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">covariance</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_metric</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">covariance</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cov_loss&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">inputs</span>
+    <span class="k">def</span> <span class="nf">get_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">base_config</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get_config</span><span class="p">()</span>
+        <span class="k">return</span> <span class="p">{</span><span class="o">**</span><span class="n">base_config</span><span class="p">,</span> <span class="s2">&quot;lam&quot;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">lam</span><span class="p">,}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>I tried different <span class="math notranslate nohighlight">\(\lambda\)</span> (the weighting factor) in the covariance loss layer. It seems the standard deviation of the latent codes drops with increasing <span class="math notranslate nohighlight">\(\lambda\)</span>. Otherwise the results don’t seem to be affected by the choice of <span class="math notranslate nohighlight">\(\lambda\)</span> that much.</p>
+<div class="cell tag_output_scroll docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># SCROLL</span>
+<span class="n">encoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPool2D</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">LatentCovarianceLayer</span><span class="p">(</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">decoder</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">input_shape</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">)),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>  <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">LeakyReLU</span><span class="p">(),</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Conv2DTranspose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s1">&#39;same&#39;</span><span class="p">),</span>
+<span class="p">])</span>
+
+<span class="n">keras</span><span class="o">.</span><span class="n">backend</span><span class="o">.</span><span class="n">clear_session</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">pca_ae</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span><span class="n">encoder</span><span class="p">,</span> <span class="n">decoder</span><span class="p">])</span>
+<span class="n">pca_ae</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;mse&#39;</span><span class="p">)</span>
+
+<span class="n">tempfn</span><span class="o">=</span><span class="s1">&#39;./model_pca_ae.hdf5&#39;</span>
+<span class="n">model_cb</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="n">tempfn</span><span class="p">,</span> <span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span><span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">early_cb</span><span class="o">=</span><span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">EarlyStopping</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">learning_rate_reduction</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ReduceLROnPlateau</span><span class="p">(</span><span class="n">monitor</span><span class="o">=</span><span class="s1">&#39;loss&#39;</span><span class="p">,</span>
+                                                            <span class="n">patience</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span>
+                                                            <span class="n">verbose</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                                            <span class="n">factor</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                                            <span class="n">min_lr</span><span class="o">=</span><span class="mf">0.00001</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="p">[</span><span class="n">model_cb</span><span class="p">,</span> <span class="n">early_cb</span><span class="p">,</span> <span class="n">learning_rate_reduction</span><span class="p">]</span>
+
+<span class="n">history</span><span class="o">=</span><span class="n">pca_ae</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span>
+                   <span class="n">epochs</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                   <span class="n">batch_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                   <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                   <span class="n">callbacks</span><span class="o">=</span><span class="n">cb</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 1/1000
+32/32 [==============================] - 2s 22ms/step - loss: 0.2087 - cov_loss: 0.0168
+
+Epoch 00001: loss improved from inf to 0.20870, saving model to ./model_pca_ae.hdf5
+Epoch 2/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.1651 - cov_loss: 0.0023
+
+Epoch 00002: loss improved from 0.20870 to 0.16515, saving model to ./model_pca_ae.hdf5
+Epoch 3/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.1051 - cov_loss: 0.0075
+
+Epoch 00003: loss improved from 0.16515 to 0.10507, saving model to ./model_pca_ae.hdf5
+Epoch 4/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0679 - cov_loss: 0.0033
+
+Epoch 00004: loss improved from 0.10507 to 0.06791, saving model to ./model_pca_ae.hdf5
+Epoch 5/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0591 - cov_loss: 0.0017
+
+Epoch 00005: loss improved from 0.06791 to 0.05909, saving model to ./model_pca_ae.hdf5
+Epoch 6/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0546 - cov_loss: 9.2819e-04
+
+Epoch 00006: loss improved from 0.05909 to 0.05465, saving model to ./model_pca_ae.hdf5
+Epoch 7/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0515 - cov_loss: 7.5206e-04
+
+Epoch 00007: loss improved from 0.05465 to 0.05148, saving model to ./model_pca_ae.hdf5
+Epoch 8/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0496 - cov_loss: 0.0014
+
+Epoch 00008: loss improved from 0.05148 to 0.04964, saving model to ./model_pca_ae.hdf5
+Epoch 9/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0471 - cov_loss: 9.4734e-04
+
+Epoch 00009: loss improved from 0.04964 to 0.04713, saving model to ./model_pca_ae.hdf5
+Epoch 10/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0456 - cov_loss: 0.0013
+
+Epoch 00010: loss improved from 0.04713 to 0.04557, saving model to ./model_pca_ae.hdf5
+Epoch 11/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0444 - cov_loss: 0.0017
+
+Epoch 00011: loss improved from 0.04557 to 0.04439, saving model to ./model_pca_ae.hdf5
+Epoch 12/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0415 - cov_loss: 0.0015
+
+Epoch 00012: loss improved from 0.04439 to 0.04152, saving model to ./model_pca_ae.hdf5
+Epoch 13/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0390 - cov_loss: 9.8759e-04
+
+Epoch 00013: loss improved from 0.04152 to 0.03897, saving model to ./model_pca_ae.hdf5
+Epoch 14/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0371 - cov_loss: 0.0012
+
+Epoch 00014: loss improved from 0.03897 to 0.03706, saving model to ./model_pca_ae.hdf5
+Epoch 15/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0352 - cov_loss: 0.0012
+
+Epoch 00015: loss improved from 0.03706 to 0.03524, saving model to ./model_pca_ae.hdf5
+Epoch 16/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0342 - cov_loss: 0.0011
+
+Epoch 00016: loss improved from 0.03524 to 0.03417, saving model to ./model_pca_ae.hdf5
+Epoch 17/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0340 - cov_loss: 0.0020
+
+Epoch 00017: loss improved from 0.03417 to 0.03404, saving model to ./model_pca_ae.hdf5
+Epoch 18/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0325 - cov_loss: 0.0011
+
+Epoch 00018: loss improved from 0.03404 to 0.03248, saving model to ./model_pca_ae.hdf5
+Epoch 19/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0318 - cov_loss: 0.0016
+
+Epoch 00019: loss improved from 0.03248 to 0.03181, saving model to ./model_pca_ae.hdf5
+Epoch 20/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0303 - cov_loss: 0.0013
+
+Epoch 00020: loss improved from 0.03181 to 0.03029, saving model to ./model_pca_ae.hdf5
+Epoch 21/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0289 - cov_loss: 8.1272e-04
+
+Epoch 00021: loss improved from 0.03029 to 0.02895, saving model to ./model_pca_ae.hdf5
+Epoch 22/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0279 - cov_loss: 9.8819e-04
+
+Epoch 00022: loss improved from 0.02895 to 0.02793, saving model to ./model_pca_ae.hdf5
+Epoch 23/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0282 - cov_loss: 0.0014
+
+Epoch 00023: loss did not improve from 0.02793
+Epoch 24/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0266 - cov_loss: 0.0010
+
+Epoch 00024: loss improved from 0.02793 to 0.02659, saving model to ./model_pca_ae.hdf5
+Epoch 25/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0259 - cov_loss: 0.0012
+
+Epoch 00025: loss improved from 0.02659 to 0.02594, saving model to ./model_pca_ae.hdf5
+Epoch 26/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0254 - cov_loss: 0.0011
+
+Epoch 00026: loss improved from 0.02594 to 0.02535, saving model to ./model_pca_ae.hdf5
+Epoch 27/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0246 - cov_loss: 0.0011
+
+Epoch 00027: loss improved from 0.02535 to 0.02465, saving model to ./model_pca_ae.hdf5
+Epoch 28/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0240 - cov_loss: 0.0012
+
+Epoch 00028: loss improved from 0.02465 to 0.02403, saving model to ./model_pca_ae.hdf5
+Epoch 29/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0238 - cov_loss: 0.0013
+
+Epoch 00029: loss improved from 0.02403 to 0.02376, saving model to ./model_pca_ae.hdf5
+Epoch 30/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0232 - cov_loss: 0.0011
+
+Epoch 00030: loss improved from 0.02376 to 0.02319, saving model to ./model_pca_ae.hdf5
+Epoch 31/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0228 - cov_loss: 0.0014
+
+Epoch 00031: loss improved from 0.02319 to 0.02283, saving model to ./model_pca_ae.hdf5
+Epoch 32/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0226 - cov_loss: 9.6941e-04
+
+Epoch 00032: loss improved from 0.02283 to 0.02259, saving model to ./model_pca_ae.hdf5
+Epoch 33/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0223 - cov_loss: 8.1680e-04
+
+Epoch 00033: loss improved from 0.02259 to 0.02229, saving model to ./model_pca_ae.hdf5
+Epoch 34/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0213 - cov_loss: 7.7724e-04
+
+Epoch 00034: loss improved from 0.02229 to 0.02127, saving model to ./model_pca_ae.hdf5
+Epoch 35/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0205 - cov_loss: 8.7999e-04
+
+Epoch 00035: loss improved from 0.02127 to 0.02050, saving model to ./model_pca_ae.hdf5
+Epoch 36/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0208 - cov_loss: 0.0011
+
+Epoch 00036: loss did not improve from 0.02050
+Epoch 37/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0206 - cov_loss: 0.0010
+
+Epoch 00037: loss did not improve from 0.02050
+Epoch 38/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0210 - cov_loss: 0.0011
+
+Epoch 00038: loss did not improve from 0.02050
+Epoch 39/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0202 - cov_loss: 0.0011
+
+Epoch 00039: loss improved from 0.02050 to 0.02017, saving model to ./model_pca_ae.hdf5
+Epoch 40/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0194 - cov_loss: 8.1869e-04
+
+Epoch 00040: loss improved from 0.02017 to 0.01942, saving model to ./model_pca_ae.hdf5
+Epoch 41/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0188 - cov_loss: 8.0608e-04
+
+Epoch 00041: loss improved from 0.01942 to 0.01885, saving model to ./model_pca_ae.hdf5
+Epoch 42/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0184 - cov_loss: 9.0581e-04
+
+Epoch 00042: loss improved from 0.01885 to 0.01842, saving model to ./model_pca_ae.hdf5
+Epoch 43/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0184 - cov_loss: 8.9649e-04
+
+Epoch 00043: loss did not improve from 0.01842
+Epoch 44/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0185 - cov_loss: 0.0011
+
+Epoch 00044: loss did not improve from 0.01842
+Epoch 45/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0171 - cov_loss: 9.2232e-04
+
+Epoch 00045: loss improved from 0.01842 to 0.01714, saving model to ./model_pca_ae.hdf5
+Epoch 46/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0164 - cov_loss: 7.5204e-04
+
+Epoch 00046: loss improved from 0.01714 to 0.01640, saving model to ./model_pca_ae.hdf5
+Epoch 47/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0166 - cov_loss: 8.4197e-04
+
+Epoch 00047: loss did not improve from 0.01640
+Epoch 48/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0166 - cov_loss: 7.8308e-04
+
+Epoch 00048: loss did not improve from 0.01640
+Epoch 49/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0179 - cov_loss: 0.0011
+
+Epoch 00049: loss did not improve from 0.01640
+Epoch 50/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0167 - cov_loss: 0.0010
+
+Epoch 00050: loss did not improve from 0.01640
+Epoch 51/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0167 - cov_loss: 8.8776e-04
+
+Epoch 00051: loss did not improve from 0.01640
+Epoch 52/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0155 - cov_loss: 7.8523e-04
+
+Epoch 00052: loss improved from 0.01640 to 0.01552, saving model to ./model_pca_ae.hdf5
+Epoch 53/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0155 - cov_loss: 8.3085e-04
+
+Epoch 00053: loss did not improve from 0.01552
+Epoch 54/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0155 - cov_loss: 0.0010
+
+Epoch 00054: loss improved from 0.01552 to 0.01550, saving model to ./model_pca_ae.hdf5
+Epoch 55/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0159 - cov_loss: 9.1024e-04
+
+Epoch 00055: loss did not improve from 0.01550
+Epoch 56/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0152 - cov_loss: 7.4836e-04
+
+Epoch 00056: loss improved from 0.01550 to 0.01519, saving model to ./model_pca_ae.hdf5
+Epoch 57/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0155 - cov_loss: 9.0626e-04
+
+Epoch 00057: loss did not improve from 0.01519
+Epoch 58/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0143 - cov_loss: 7.8259e-04
+
+Epoch 00058: loss improved from 0.01519 to 0.01425, saving model to ./model_pca_ae.hdf5
+Epoch 59/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0152 - cov_loss: 7.8684e-04
+
+Epoch 00059: loss did not improve from 0.01425
+Epoch 60/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0146 - cov_loss: 7.4557e-04
+
+Epoch 00060: loss did not improve from 0.01425
+Epoch 61/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0153 - cov_loss: 8.4062e-04
+
+Epoch 00061: loss did not improve from 0.01425
+Epoch 62/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0155 - cov_loss: 6.4073e-04
+
+Epoch 00062: loss did not improve from 0.01425
+Epoch 63/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0143 - cov_loss: 8.6747e-04
+
+Epoch 00063: loss did not improve from 0.01425
+Epoch 64/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0142 - cov_loss: 8.6512e-04
+
+Epoch 00064: loss improved from 0.01425 to 0.01418, saving model to ./model_pca_ae.hdf5
+Epoch 65/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0141 - cov_loss: 0.0011
+
+Epoch 00065: loss improved from 0.01418 to 0.01414, saving model to ./model_pca_ae.hdf5
+Epoch 66/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0138 - cov_loss: 9.0798e-04
+
+Epoch 00066: loss improved from 0.01414 to 0.01380, saving model to ./model_pca_ae.hdf5
+Epoch 67/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0136 - cov_loss: 8.8295e-04
+
+Epoch 00067: loss improved from 0.01380 to 0.01363, saving model to ./model_pca_ae.hdf5
+Epoch 68/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0137 - cov_loss: 6.5596e-04
+
+Epoch 00068: loss did not improve from 0.01363
+Epoch 69/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0139 - cov_loss: 0.0011
+
+Epoch 00069: loss did not improve from 0.01363
+Epoch 70/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0129 - cov_loss: 9.4259e-04
+
+Epoch 00070: loss improved from 0.01363 to 0.01294, saving model to ./model_pca_ae.hdf5
+Epoch 71/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0128 - cov_loss: 8.5200e-04
+
+Epoch 00071: loss improved from 0.01294 to 0.01281, saving model to ./model_pca_ae.hdf5
+Epoch 72/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0132 - cov_loss: 8.8814e-04
+
+Epoch 00072: loss did not improve from 0.01281
+Epoch 73/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0133 - cov_loss: 0.0011
+
+Epoch 00073: loss did not improve from 0.01281
+Epoch 74/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0130 - cov_loss: 6.7196e-04
+
+Epoch 00074: loss did not improve from 0.01281
+Epoch 75/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0122 - cov_loss: 8.1467e-04
+
+Epoch 00075: loss improved from 0.01281 to 0.01224, saving model to ./model_pca_ae.hdf5
+Epoch 76/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0122 - cov_loss: 7.1935e-04
+
+Epoch 00076: loss improved from 0.01224 to 0.01223, saving model to ./model_pca_ae.hdf5
+Epoch 77/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0121 - cov_loss: 7.6762e-04
+
+Epoch 00077: loss improved from 0.01223 to 0.01205, saving model to ./model_pca_ae.hdf5
+Epoch 78/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0123 - cov_loss: 7.5190e-04
+
+Epoch 00078: loss did not improve from 0.01205
+Epoch 79/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0120 - cov_loss: 7.6198e-04
+
+Epoch 00079: loss improved from 0.01205 to 0.01205, saving model to ./model_pca_ae.hdf5
+Epoch 80/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0122 - cov_loss: 7.5057e-04
+
+Epoch 00080: loss did not improve from 0.01205
+Epoch 81/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0120 - cov_loss: 7.2653e-04
+
+Epoch 00081: loss improved from 0.01205 to 0.01196, saving model to ./model_pca_ae.hdf5
+Epoch 82/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0126 - cov_loss: 9.7645e-04
+
+Epoch 00082: loss did not improve from 0.01196
+Epoch 83/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0116 - cov_loss: 7.1381e-04
+
+Epoch 00083: loss improved from 0.01196 to 0.01164, saving model to ./model_pca_ae.hdf5
+Epoch 84/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0120 - cov_loss: 7.4844e-04
+
+Epoch 00084: loss did not improve from 0.01164
+Epoch 85/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0121 - cov_loss: 8.7174e-04
+
+Epoch 00085: loss did not improve from 0.01164
+Epoch 86/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0110 - cov_loss: 5.9768e-04
+
+Epoch 00086: loss improved from 0.01164 to 0.01099, saving model to ./model_pca_ae.hdf5
+Epoch 87/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0118 - cov_loss: 7.0246e-04
+
+Epoch 00087: loss did not improve from 0.01099
+Epoch 88/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0114 - cov_loss: 8.4667e-04
+
+Epoch 00088: loss did not improve from 0.01099
+Epoch 89/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0105 - cov_loss: 7.0695e-04
+
+Epoch 00089: loss improved from 0.01099 to 0.01051, saving model to ./model_pca_ae.hdf5
+Epoch 90/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0118 - cov_loss: 8.1441e-04
+
+Epoch 00090: loss did not improve from 0.01051
+Epoch 91/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0116 - cov_loss: 7.3536e-04
+
+Epoch 00091: loss did not improve from 0.01051
+Epoch 92/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0115 - cov_loss: 8.4840e-04
+
+Epoch 00092: loss did not improve from 0.01051
+Epoch 93/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0110 - cov_loss: 7.5763e-04
+
+Epoch 00093: loss did not improve from 0.01051
+Epoch 94/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0110 - cov_loss: 6.9093e-04
+
+Epoch 00094: loss did not improve from 0.01051
+Epoch 95/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0114 - cov_loss: 6.6988e-04
+
+Epoch 00095: loss did not improve from 0.01051
+Epoch 96/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0114 - cov_loss: 8.2084e-04
+
+Epoch 00096: loss did not improve from 0.01051
+Epoch 97/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0106 - cov_loss: 6.8631e-04
+
+Epoch 00097: loss did not improve from 0.01051
+Epoch 98/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0117 - cov_loss: 9.7252e-04
+
+Epoch 00098: loss did not improve from 0.01051
+Epoch 99/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0105 - cov_loss: 7.1088e-04
+
+Epoch 00099: loss did not improve from 0.01051
+Epoch 100/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0107 - cov_loss: 4.9318e-04
+
+Epoch 00100: loss did not improve from 0.01051
+Epoch 101/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0106 - cov_loss: 6.5032e-04
+
+Epoch 00101: loss did not improve from 0.01051
+Epoch 102/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0111 - cov_loss: 6.8997e-04
+
+Epoch 00102: loss did not improve from 0.01051
+Epoch 103/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0107 - cov_loss: 8.2317e-04
+
+Epoch 00103: loss did not improve from 0.01051
+Epoch 104/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0115 - cov_loss: 8.6914e-04
+
+Epoch 00104: loss did not improve from 0.01051
+Epoch 105/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0101 - cov_loss: 5.9080e-04
+
+Epoch 00105: loss improved from 0.01051 to 0.01011, saving model to ./model_pca_ae.hdf5
+Epoch 106/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0099 - cov_loss: 6.3821e-04
+
+Epoch 00106: loss improved from 0.01011 to 0.00991, saving model to ./model_pca_ae.hdf5
+Epoch 107/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0110 - cov_loss: 7.6197e-04
+
+Epoch 00107: loss did not improve from 0.00991
+Epoch 108/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0121 - cov_loss: 9.1706e-04
+
+Epoch 00108: loss did not improve from 0.00991
+Epoch 109/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0122 - cov_loss: 7.5175e-04
+
+Epoch 00109: loss did not improve from 0.00991
+Epoch 110/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0113 - cov_loss: 7.0811e-04
+
+Epoch 00110: loss did not improve from 0.00991
+Epoch 111/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0103 - cov_loss: 5.7730e-04
+
+Epoch 00111: loss did not improve from 0.00991
+Epoch 112/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0107 - cov_loss: 8.2132e-04
+
+Epoch 00112: loss did not improve from 0.00991
+Epoch 113/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0101 - cov_loss: 6.2971e-04
+
+Epoch 00113: loss did not improve from 0.00991
+Epoch 114/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0102 - cov_loss: 7.3156e-04
+
+Epoch 00114: loss did not improve from 0.00991
+Epoch 115/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0103 - cov_loss: 5.9222e-04
+
+Epoch 00115: loss did not improve from 0.00991
+Epoch 116/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0097 - cov_loss: 5.8660e-04
+
+Epoch 00116: loss improved from 0.00991 to 0.00966, saving model to ./model_pca_ae.hdf5
+Epoch 117/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0102 - cov_loss: 8.3593e-04
+
+Epoch 00117: loss did not improve from 0.00966
+Epoch 118/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0100 - cov_loss: 7.6157e-04
+
+Epoch 00118: loss did not improve from 0.00966
+Epoch 119/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0101 - cov_loss: 5.5118e-04
+
+Epoch 00119: loss did not improve from 0.00966
+Epoch 120/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0101 - cov_loss: 5.3792e-04
+
+Epoch 00120: loss did not improve from 0.00966
+Epoch 121/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0109 - cov_loss: 7.9549e-04
+
+Epoch 00121: loss did not improve from 0.00966
+Epoch 122/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0094 - cov_loss: 6.3721e-04
+
+Epoch 00122: loss improved from 0.00966 to 0.00945, saving model to ./model_pca_ae.hdf5
+Epoch 123/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0101 - cov_loss: 7.0117e-04
+
+Epoch 00123: loss did not improve from 0.00945
+Epoch 124/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0097 - cov_loss: 6.4563e-04
+
+Epoch 00124: loss did not improve from 0.00945
+Epoch 125/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0098 - cov_loss: 6.6593e-04
+
+Epoch 00125: loss did not improve from 0.00945
+Epoch 126/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0109 - cov_loss: 7.2376e-04
+
+Epoch 00126: loss did not improve from 0.00945
+Epoch 127/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0096 - cov_loss: 6.1483e-04
+
+Epoch 00127: loss did not improve from 0.00945
+Epoch 128/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0099 - cov_loss: 8.0377e-04
+
+Epoch 00128: loss did not improve from 0.00945
+Epoch 129/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0094 - cov_loss: 6.9087e-04
+
+Epoch 00129: loss improved from 0.00945 to 0.00939, saving model to ./model_pca_ae.hdf5
+Epoch 130/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0111 - cov_loss: 6.9880e-04
+
+Epoch 00130: loss did not improve from 0.00939
+Epoch 131/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0097 - cov_loss: 6.2221e-04
+
+Epoch 00131: loss did not improve from 0.00939
+Epoch 132/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0103 - cov_loss: 7.3780e-04
+
+Epoch 00132: loss did not improve from 0.00939
+Epoch 133/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0093 - cov_loss: 6.8705e-04
+
+Epoch 00133: loss improved from 0.00939 to 0.00927, saving model to ./model_pca_ae.hdf5
+Epoch 134/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0095 - cov_loss: 6.7417e-04
+
+Epoch 00134: loss did not improve from 0.00927
+Epoch 135/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0094 - cov_loss: 5.3393e-04
+
+Epoch 00135: loss did not improve from 0.00927
+Epoch 136/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0110 - cov_loss: 6.2578e-04
+
+Epoch 00136: loss did not improve from 0.00927
+Epoch 137/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0109 - cov_loss: 5.9311e-04
+
+Epoch 00137: loss did not improve from 0.00927
+Epoch 138/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0099 - cov_loss: 6.3886e-04
+
+Epoch 00138: loss did not improve from 0.00927
+Epoch 139/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0094 - cov_loss: 6.2483e-04
+
+Epoch 00139: loss did not improve from 0.00927
+Epoch 140/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0093 - cov_loss: 5.3945e-04
+
+Epoch 00140: loss improved from 0.00927 to 0.00927, saving model to ./model_pca_ae.hdf5
+Epoch 141/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0097 - cov_loss: 5.9434e-04
+
+Epoch 00141: loss did not improve from 0.00927
+Epoch 142/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0100 - cov_loss: 5.6429e-04
+
+Epoch 00142: loss did not improve from 0.00927
+Epoch 143/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0103 - cov_loss: 6.8064e-04
+
+Epoch 00143: loss did not improve from 0.00927
+Epoch 144/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0096 - cov_loss: 6.8691e-04
+
+Epoch 00144: loss did not improve from 0.00927
+Epoch 145/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0096 - cov_loss: 5.4507e-04
+
+Epoch 00145: loss did not improve from 0.00927
+Epoch 146/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0092 - cov_loss: 6.2452e-04
+
+Epoch 00146: loss improved from 0.00927 to 0.00916, saving model to ./model_pca_ae.hdf5
+Epoch 147/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0094 - cov_loss: 5.5140e-04
+
+Epoch 00147: loss did not improve from 0.00916
+Epoch 148/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0096 - cov_loss: 5.8975e-04
+
+Epoch 00148: loss did not improve from 0.00916
+Epoch 149/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0089 - cov_loss: 5.8010e-04
+
+Epoch 00149: loss improved from 0.00916 to 0.00894, saving model to ./model_pca_ae.hdf5
+Epoch 150/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0089 - cov_loss: 5.1675e-04
+
+Epoch 00150: loss improved from 0.00894 to 0.00889, saving model to ./model_pca_ae.hdf5
+Epoch 151/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0093 - cov_loss: 6.2556e-04
+
+Epoch 00151: loss did not improve from 0.00889
+Epoch 152/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0096 - cov_loss: 6.3083e-04
+
+Epoch 00152: loss did not improve from 0.00889
+Epoch 153/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0091 - cov_loss: 5.2630e-04
+
+Epoch 00153: loss did not improve from 0.00889
+Epoch 154/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0085 - cov_loss: 4.4145e-04
+
+Epoch 00154: loss improved from 0.00889 to 0.00845, saving model to ./model_pca_ae.hdf5
+Epoch 155/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0090 - cov_loss: 4.9441e-04
+
+Epoch 00155: loss did not improve from 0.00845
+Epoch 156/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0097 - cov_loss: 6.5444e-04
+
+Epoch 00156: loss did not improve from 0.00845
+Epoch 157/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0092 - cov_loss: 6.1695e-04
+
+Epoch 00157: loss did not improve from 0.00845
+Epoch 158/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0091 - cov_loss: 5.4855e-04
+
+Epoch 00158: loss did not improve from 0.00845
+Epoch 159/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0089 - cov_loss: 5.3481e-04
+
+Epoch 00159: loss did not improve from 0.00845
+Epoch 160/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0092 - cov_loss: 5.5424e-04
+
+Epoch 00160: loss did not improve from 0.00845
+Epoch 161/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0095 - cov_loss: 5.7801e-04
+
+Epoch 00161: loss did not improve from 0.00845
+Epoch 162/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0100 - cov_loss: 5.9749e-04
+
+Epoch 00162: loss did not improve from 0.00845
+Epoch 163/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0100 - cov_loss: 5.5749e-04
+
+Epoch 00163: loss did not improve from 0.00845
+Epoch 164/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0100 - cov_loss: 4.7915e-04
+
+Epoch 00164: loss did not improve from 0.00845
+Epoch 165/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0090 - cov_loss: 4.0332e-04
+
+Epoch 00165: loss did not improve from 0.00845
+Epoch 166/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0108 - cov_loss: 8.1002e-04
+
+Epoch 00166: loss did not improve from 0.00845
+Epoch 167/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0098 - cov_loss: 5.5160e-04
+
+Epoch 00167: loss did not improve from 0.00845
+Epoch 168/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0091 - cov_loss: 5.2844e-04
+
+Epoch 00168: loss did not improve from 0.00845
+Epoch 169/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0097 - cov_loss: 6.7792e-04
+
+Epoch 00169: loss did not improve from 0.00845
+Epoch 170/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0097 - cov_loss: 6.2158e-04
+
+Epoch 00170: loss did not improve from 0.00845
+Epoch 171/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0087 - cov_loss: 5.7728e-04
+
+Epoch 00171: loss did not improve from 0.00845
+Epoch 172/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0091 - cov_loss: 4.4776e-04
+
+Epoch 00172: loss did not improve from 0.00845
+Epoch 173/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0096 - cov_loss: 5.7429e-04
+
+Epoch 00173: loss did not improve from 0.00845
+Epoch 174/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0092 - cov_loss: 5.1269e-04
+
+Epoch 00174: loss did not improve from 0.00845
+Epoch 175/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0096 - cov_loss: 6.0769e-04
+
+Epoch 00175: loss did not improve from 0.00845
+Epoch 176/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0088 - cov_loss: 6.2194e-04
+
+Epoch 00176: loss did not improve from 0.00845
+Epoch 177/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0102 - cov_loss: 5.5854e-04
+
+Epoch 00177: loss did not improve from 0.00845
+Epoch 178/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0088 - cov_loss: 4.4714e-04
+
+Epoch 00178: loss did not improve from 0.00845
+Epoch 179/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0092 - cov_loss: 6.5803e-04
+
+Epoch 00179: loss did not improve from 0.00845
+
+Epoch 00179: ReduceLROnPlateau reducing learning rate to 0.0005000000237487257.
+Epoch 180/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0087 - cov_loss: 4.7460e-04
+
+Epoch 00180: loss did not improve from 0.00845
+Epoch 181/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 4.9894e-04
+
+Epoch 00181: loss improved from 0.00845 to 0.00811, saving model to ./model_pca_ae.hdf5
+Epoch 182/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0083 - cov_loss: 4.7708e-04
+
+Epoch 00182: loss did not improve from 0.00811
+Epoch 183/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 5.8132e-04
+
+Epoch 00183: loss improved from 0.00811 to 0.00804, saving model to ./model_pca_ae.hdf5
+Epoch 184/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0082 - cov_loss: 4.9816e-04
+
+Epoch 00184: loss did not improve from 0.00804
+Epoch 185/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.2169e-04
+
+Epoch 00185: loss improved from 0.00804 to 0.00781, saving model to ./model_pca_ae.hdf5
+Epoch 186/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0086 - cov_loss: 7.2082e-04
+
+Epoch 00186: loss did not improve from 0.00781
+Epoch 187/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0087 - cov_loss: 5.1696e-04
+
+Epoch 00187: loss did not improve from 0.00781
+Epoch 188/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0087 - cov_loss: 4.4947e-04
+
+Epoch 00188: loss did not improve from 0.00781
+Epoch 189/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 4.9087e-04
+
+Epoch 00189: loss did not improve from 0.00781
+Epoch 190/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0083 - cov_loss: 5.7889e-04
+
+Epoch 00190: loss did not improve from 0.00781
+Epoch 191/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0085 - cov_loss: 4.1008e-04
+
+Epoch 00191: loss did not improve from 0.00781
+Epoch 192/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 3.9320e-04
+
+Epoch 00192: loss did not improve from 0.00781
+Epoch 193/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 4.8560e-04
+
+Epoch 00193: loss did not improve from 0.00781
+Epoch 194/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0082 - cov_loss: 4.1758e-04
+
+Epoch 00194: loss did not improve from 0.00781
+Epoch 195/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 4.7357e-04
+
+Epoch 00195: loss did not improve from 0.00781
+Epoch 196/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 4.9739e-04
+
+Epoch 00196: loss did not improve from 0.00781
+Epoch 197/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 4.1413e-04
+
+Epoch 00197: loss did not improve from 0.00781
+Epoch 198/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0082 - cov_loss: 5.2510e-04
+
+Epoch 00198: loss did not improve from 0.00781
+Epoch 199/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 4.5727e-04
+
+Epoch 00199: loss did not improve from 0.00781
+Epoch 200/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0077 - cov_loss: 4.9722e-04
+
+Epoch 00200: loss improved from 0.00781 to 0.00767, saving model to ./model_pca_ae.hdf5
+Epoch 201/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0087 - cov_loss: 4.2658e-04
+
+Epoch 00201: loss did not improve from 0.00767
+Epoch 202/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0082 - cov_loss: 5.4724e-04
+
+Epoch 00202: loss did not improve from 0.00767
+Epoch 203/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.6115e-04
+
+Epoch 00203: loss did not improve from 0.00767
+Epoch 204/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0077 - cov_loss: 4.2923e-04
+
+Epoch 00204: loss did not improve from 0.00767
+Epoch 205/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 4.9275e-04
+
+Epoch 00205: loss did not improve from 0.00767
+Epoch 206/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0082 - cov_loss: 5.0949e-04
+
+Epoch 00206: loss did not improve from 0.00767
+Epoch 207/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0085 - cov_loss: 5.1038e-04
+
+Epoch 00207: loss did not improve from 0.00767
+Epoch 208/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0090 - cov_loss: 5.9208e-04
+
+Epoch 00208: loss did not improve from 0.00767
+Epoch 209/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0083 - cov_loss: 4.0111e-04
+
+Epoch 00209: loss did not improve from 0.00767
+Epoch 210/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 3.2130e-04
+
+Epoch 00210: loss did not improve from 0.00767
+Epoch 211/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0086 - cov_loss: 4.3883e-04
+
+Epoch 00211: loss did not improve from 0.00767
+Epoch 212/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0087 - cov_loss: 5.3139e-04
+
+Epoch 00212: loss did not improve from 0.00767
+Epoch 213/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0092 - cov_loss: 5.5447e-04
+
+Epoch 00213: loss did not improve from 0.00767
+Epoch 214/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0083 - cov_loss: 4.2363e-04
+
+Epoch 00214: loss did not improve from 0.00767
+Epoch 215/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 4.5410e-04
+
+Epoch 00215: loss improved from 0.00767 to 0.00761, saving model to ./model_pca_ae.hdf5
+Epoch 216/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0080 - cov_loss: 4.7065e-04
+
+Epoch 00216: loss did not improve from 0.00761
+Epoch 217/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0079 - cov_loss: 3.8129e-04
+
+Epoch 00217: loss did not improve from 0.00761
+Epoch 218/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.2810e-04
+
+Epoch 00218: loss did not improve from 0.00761
+Epoch 219/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.3921e-04
+
+Epoch 00219: loss did not improve from 0.00761
+Epoch 220/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0090 - cov_loss: 4.8692e-04
+
+Epoch 00220: loss did not improve from 0.00761
+Epoch 221/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0077 - cov_loss: 4.9261e-04
+
+Epoch 00221: loss did not improve from 0.00761
+Epoch 222/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 4.8730e-04
+
+Epoch 00222: loss improved from 0.00761 to 0.00748, saving model to ./model_pca_ae.hdf5
+Epoch 223/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 4.6660e-04
+
+Epoch 00223: loss did not improve from 0.00748
+Epoch 224/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 5.5094e-04
+
+Epoch 00224: loss did not improve from 0.00748
+Epoch 225/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0086 - cov_loss: 3.8238e-04
+
+Epoch 00225: loss did not improve from 0.00748
+Epoch 226/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0085 - cov_loss: 4.2375e-04
+
+Epoch 00226: loss did not improve from 0.00748
+Epoch 227/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 3.6506e-04
+
+Epoch 00227: loss improved from 0.00748 to 0.00744, saving model to ./model_pca_ae.hdf5
+Epoch 228/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0074 - cov_loss: 3.7530e-04
+
+Epoch 00228: loss improved from 0.00744 to 0.00739, saving model to ./model_pca_ae.hdf5
+Epoch 229/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0079 - cov_loss: 5.4098e-04
+
+Epoch 00229: loss did not improve from 0.00739
+Epoch 230/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0075 - cov_loss: 4.0140e-04
+
+Epoch 00230: loss did not improve from 0.00739
+Epoch 231/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0091 - cov_loss: 3.9953e-04
+
+Epoch 00231: loss did not improve from 0.00739
+Epoch 232/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 5.4488e-04
+
+Epoch 00232: loss did not improve from 0.00739
+Epoch 233/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0083 - cov_loss: 4.7570e-04
+
+Epoch 00233: loss did not improve from 0.00739
+Epoch 234/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 4.4599e-04
+
+Epoch 00234: loss did not improve from 0.00739
+Epoch 235/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0082 - cov_loss: 4.4088e-04
+
+Epoch 00235: loss did not improve from 0.00739
+Epoch 236/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0076 - cov_loss: 3.8724e-04
+
+Epoch 00236: loss did not improve from 0.00739
+Epoch 237/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0077 - cov_loss: 4.6540e-04
+
+Epoch 00237: loss did not improve from 0.00739
+Epoch 238/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0079 - cov_loss: 4.6517e-04
+
+Epoch 00238: loss did not improve from 0.00739
+Epoch 239/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0081 - cov_loss: 4.1883e-04
+
+Epoch 00239: loss did not improve from 0.00739
+Epoch 240/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0089 - cov_loss: 4.6804e-04
+
+Epoch 00240: loss did not improve from 0.00739
+Epoch 241/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0084 - cov_loss: 5.2425e-04
+
+Epoch 00241: loss did not improve from 0.00739
+Epoch 242/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 4.0088e-04
+
+Epoch 00242: loss did not improve from 0.00739
+Epoch 243/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0083 - cov_loss: 5.7379e-04
+
+Epoch 00243: loss did not improve from 0.00739
+Epoch 244/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.1716e-04
+
+Epoch 00244: loss did not improve from 0.00739
+Epoch 245/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 4.6192e-04
+
+Epoch 00245: loss did not improve from 0.00739
+Epoch 246/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0080 - cov_loss: 4.7550e-04
+
+Epoch 00246: loss did not improve from 0.00739
+Epoch 247/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0086 - cov_loss: 4.9688e-04
+
+Epoch 00247: loss did not improve from 0.00739
+
+Epoch 00247: ReduceLROnPlateau reducing learning rate to 0.0002500000118743628.
+Epoch 248/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 4.5324e-04
+
+Epoch 00248: loss did not improve from 0.00739
+Epoch 249/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 3.8730e-04
+
+Epoch 00249: loss did not improve from 0.00739
+Epoch 250/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 4.1554e-04
+
+Epoch 00250: loss improved from 0.00739 to 0.00734, saving model to ./model_pca_ae.hdf5
+Epoch 251/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0073 - cov_loss: 4.3742e-04
+
+Epoch 00251: loss improved from 0.00734 to 0.00730, saving model to ./model_pca_ae.hdf5
+Epoch 252/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 4.5672e-04
+
+Epoch 00252: loss did not improve from 0.00730
+Epoch 253/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 3.9373e-04
+
+Epoch 00253: loss did not improve from 0.00730
+Epoch 254/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 4.2811e-04
+
+Epoch 00254: loss did not improve from 0.00730
+Epoch 255/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 3.8954e-04
+
+Epoch 00255: loss did not improve from 0.00730
+Epoch 256/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 5.0756e-04
+
+Epoch 00256: loss did not improve from 0.00730
+Epoch 257/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 4.1211e-04
+
+Epoch 00257: loss did not improve from 0.00730
+Epoch 258/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0080 - cov_loss: 3.8670e-04
+
+Epoch 00258: loss did not improve from 0.00730
+Epoch 259/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0086 - cov_loss: 4.5002e-04
+
+Epoch 00259: loss did not improve from 0.00730
+Epoch 260/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 4.3897e-04
+
+Epoch 00260: loss improved from 0.00730 to 0.00727, saving model to ./model_pca_ae.hdf5
+Epoch 261/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0077 - cov_loss: 4.3741e-04
+
+Epoch 00261: loss did not improve from 0.00727
+Epoch 262/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 4.1294e-04
+
+Epoch 00262: loss improved from 0.00727 to 0.00707, saving model to ./model_pca_ae.hdf5
+Epoch 263/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0074 - cov_loss: 4.5696e-04
+
+Epoch 00263: loss did not improve from 0.00707
+Epoch 264/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 4.1676e-04
+
+Epoch 00264: loss did not improve from 0.00707
+Epoch 265/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0073 - cov_loss: 3.8691e-04
+
+Epoch 00265: loss did not improve from 0.00707
+Epoch 266/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.1448e-04
+
+Epoch 00266: loss did not improve from 0.00707
+Epoch 267/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 3.6512e-04
+
+Epoch 00267: loss did not improve from 0.00707
+Epoch 268/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 5.0243e-04
+
+Epoch 00268: loss did not improve from 0.00707
+Epoch 269/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 3.8932e-04
+
+Epoch 00269: loss did not improve from 0.00707
+Epoch 270/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0072 - cov_loss: 4.9084e-04
+
+Epoch 00270: loss did not improve from 0.00707
+Epoch 271/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 3.8243e-04
+
+Epoch 00271: loss did not improve from 0.00707
+Epoch 272/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 4.0453e-04
+
+Epoch 00272: loss did not improve from 0.00707
+Epoch 273/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 5.0719e-04
+
+Epoch 00273: loss improved from 0.00707 to 0.00693, saving model to ./model_pca_ae.hdf5
+Epoch 274/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 3.9644e-04
+
+Epoch 00274: loss did not improve from 0.00693
+Epoch 275/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 3.8908e-04
+
+Epoch 00275: loss did not improve from 0.00693
+Epoch 276/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0073 - cov_loss: 3.4323e-04
+
+Epoch 00276: loss did not improve from 0.00693
+Epoch 277/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0076 - cov_loss: 4.0389e-04
+
+Epoch 00277: loss did not improve from 0.00693
+Epoch 278/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0077 - cov_loss: 3.8178e-04
+
+Epoch 00278: loss did not improve from 0.00693
+Epoch 279/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 3.8712e-04
+
+Epoch 00279: loss did not improve from 0.00693
+Epoch 280/1000
+32/32 [==============================] - 1s 21ms/step - loss: 0.0071 - cov_loss: 3.4627e-04
+
+Epoch 00280: loss did not improve from 0.00693
+Epoch 281/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 4.4412e-04
+
+Epoch 00281: loss did not improve from 0.00693
+Epoch 282/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0078 - cov_loss: 4.8711e-04
+
+Epoch 00282: loss did not improve from 0.00693
+Epoch 283/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 3.9550e-04
+
+Epoch 00283: loss did not improve from 0.00693
+Epoch 284/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0073 - cov_loss: 3.7548e-04
+
+Epoch 00284: loss did not improve from 0.00693
+Epoch 285/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 4.1586e-04
+
+Epoch 00285: loss did not improve from 0.00693
+Epoch 286/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0073 - cov_loss: 3.1832e-04
+
+Epoch 00286: loss did not improve from 0.00693
+Epoch 287/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0080 - cov_loss: 3.6067e-04
+
+Epoch 00287: loss did not improve from 0.00693
+Epoch 288/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.6217e-04
+
+Epoch 00288: loss improved from 0.00693 to 0.00685, saving model to ./model_pca_ae.hdf5
+Epoch 289/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 4.5064e-04
+
+Epoch 00289: loss did not improve from 0.00685
+Epoch 290/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 4.2240e-04
+
+Epoch 00290: loss did not improve from 0.00685
+Epoch 291/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0079 - cov_loss: 4.0181e-04
+
+Epoch 00291: loss did not improve from 0.00685
+Epoch 292/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0076 - cov_loss: 3.6730e-04
+
+Epoch 00292: loss did not improve from 0.00685
+Epoch 293/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 2.7293e-04
+
+Epoch 00293: loss did not improve from 0.00685
+Epoch 294/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0074 - cov_loss: 4.5881e-04
+
+Epoch 00294: loss did not improve from 0.00685
+Epoch 295/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0076 - cov_loss: 4.2054e-04
+
+Epoch 00295: loss did not improve from 0.00685
+Epoch 296/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0073 - cov_loss: 3.1535e-04
+
+Epoch 00296: loss did not improve from 0.00685
+Epoch 297/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 4.0570e-04
+
+Epoch 00297: loss did not improve from 0.00685
+Epoch 298/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 4.0975e-04
+
+Epoch 00298: loss did not improve from 0.00685
+
+Epoch 00298: ReduceLROnPlateau reducing learning rate to 0.0001250000059371814.
+Epoch 299/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 3.3674e-04
+
+Epoch 00299: loss did not improve from 0.00685
+Epoch 300/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.4267e-04
+
+Epoch 00300: loss improved from 0.00685 to 0.00678, saving model to ./model_pca_ae.hdf5
+Epoch 301/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0066 - cov_loss: 3.2315e-04
+
+Epoch 00301: loss improved from 0.00678 to 0.00664, saving model to ./model_pca_ae.hdf5
+Epoch 302/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0070 - cov_loss: 3.3904e-04
+
+Epoch 00302: loss did not improve from 0.00664
+Epoch 303/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 5.0653e-04
+
+Epoch 00303: loss did not improve from 0.00664
+Epoch 304/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0069 - cov_loss: 3.6328e-04
+
+Epoch 00304: loss did not improve from 0.00664
+Epoch 305/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.0637e-04
+
+Epoch 00305: loss did not improve from 0.00664
+Epoch 306/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.7517e-04
+
+Epoch 00306: loss did not improve from 0.00664
+Epoch 307/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 3.3412e-04
+
+Epoch 00307: loss did not improve from 0.00664
+Epoch 308/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0069 - cov_loss: 3.8120e-04
+
+Epoch 00308: loss did not improve from 0.00664
+Epoch 309/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0075 - cov_loss: 4.7204e-04
+
+Epoch 00309: loss did not improve from 0.00664
+Epoch 310/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.6971e-04
+
+Epoch 00310: loss did not improve from 0.00664
+Epoch 311/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 3.4776e-04
+
+Epoch 00311: loss did not improve from 0.00664
+Epoch 312/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 3.3252e-04
+
+Epoch 00312: loss did not improve from 0.00664
+Epoch 313/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.6743e-04
+
+Epoch 00313: loss did not improve from 0.00664
+Epoch 314/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.6939e-04
+
+Epoch 00314: loss did not improve from 0.00664
+Epoch 315/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.8288e-04
+
+Epoch 00315: loss did not improve from 0.00664
+Epoch 316/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0074 - cov_loss: 3.7763e-04
+
+Epoch 00316: loss did not improve from 0.00664
+Epoch 317/1000
+32/32 [==============================] - 1s 24ms/step - loss: 0.0070 - cov_loss: 2.5369e-04
+
+Epoch 00317: loss did not improve from 0.00664
+Epoch 318/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.5899e-04
+
+Epoch 00318: loss did not improve from 0.00664
+Epoch 319/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.8959e-04
+
+Epoch 00319: loss did not improve from 0.00664
+Epoch 320/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0075 - cov_loss: 4.5911e-04
+
+Epoch 00320: loss did not improve from 0.00664
+Epoch 321/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0070 - cov_loss: 4.0056e-04
+
+Epoch 00321: loss did not improve from 0.00664
+Epoch 322/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0072 - cov_loss: 3.9631e-04
+
+Epoch 00322: loss did not improve from 0.00664
+Epoch 323/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0070 - cov_loss: 3.6456e-04
+
+Epoch 00323: loss did not improve from 0.00664
+Epoch 324/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 4.4385e-04
+
+Epoch 00324: loss did not improve from 0.00664
+Epoch 325/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0070 - cov_loss: 4.3496e-04
+
+Epoch 00325: loss did not improve from 0.00664
+Epoch 326/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 3.6470e-04
+
+Epoch 00326: loss did not improve from 0.00664
+
+Epoch 00326: ReduceLROnPlateau reducing learning rate to 6.25000029685907e-05.
+Epoch 327/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.5121e-04
+
+Epoch 00327: loss did not improve from 0.00664
+Epoch 328/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.1686e-04
+
+Epoch 00328: loss did not improve from 0.00664
+Epoch 329/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.9783e-04
+
+Epoch 00329: loss did not improve from 0.00664
+Epoch 330/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 3.7463e-04
+
+Epoch 00330: loss did not improve from 0.00664
+Epoch 331/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.8399e-04
+
+Epoch 00331: loss did not improve from 0.00664
+Epoch 332/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 4.1924e-04
+
+Epoch 00332: loss did not improve from 0.00664
+Epoch 333/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 3.6697e-04
+
+Epoch 00333: loss did not improve from 0.00664
+Epoch 334/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 4.2905e-04
+
+Epoch 00334: loss did not improve from 0.00664
+Epoch 335/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 4.6173e-04
+
+Epoch 00335: loss did not improve from 0.00664
+Epoch 336/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 4.7846e-04
+
+Epoch 00336: loss did not improve from 0.00664
+Epoch 337/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0072 - cov_loss: 3.3202e-04
+
+Epoch 00337: loss did not improve from 0.00664
+Epoch 338/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0066 - cov_loss: 3.2276e-04
+
+Epoch 00338: loss improved from 0.00664 to 0.00657, saving model to ./model_pca_ae.hdf5
+Epoch 339/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.2928e-04
+
+Epoch 00339: loss did not improve from 0.00657
+Epoch 340/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 4.1884e-04
+
+Epoch 00340: loss did not improve from 0.00657
+Epoch 341/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.6441e-04
+
+Epoch 00341: loss did not improve from 0.00657
+Epoch 342/1000
+32/32 [==============================] - 1s 24ms/step - loss: 0.0069 - cov_loss: 3.6920e-04
+
+Epoch 00342: loss did not improve from 0.00657
+Epoch 343/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 4.3606e-04
+
+Epoch 00343: loss did not improve from 0.00657
+Epoch 344/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.6041e-04
+
+Epoch 00344: loss did not improve from 0.00657
+Epoch 345/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0069 - cov_loss: 2.8878e-04
+
+Epoch 00345: loss did not improve from 0.00657
+Epoch 346/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.9777e-04
+
+Epoch 00346: loss did not improve from 0.00657
+Epoch 347/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.1068e-04
+
+Epoch 00347: loss did not improve from 0.00657
+Epoch 348/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.0499e-04
+
+Epoch 00348: loss did not improve from 0.00657
+Epoch 349/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.7133e-04
+
+Epoch 00349: loss did not improve from 0.00657
+Epoch 350/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0066 - cov_loss: 2.7233e-04
+
+Epoch 00350: loss did not improve from 0.00657
+Epoch 351/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 3.8032e-04
+
+Epoch 00351: loss did not improve from 0.00657
+
+Epoch 00351: ReduceLROnPlateau reducing learning rate to 3.125000148429535e-05.
+Epoch 352/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.9215e-04
+
+Epoch 00352: loss did not improve from 0.00657
+Epoch 353/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 4.5016e-04
+
+Epoch 00353: loss did not improve from 0.00657
+Epoch 354/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0069 - cov_loss: 3.1562e-04
+
+Epoch 00354: loss did not improve from 0.00657
+Epoch 355/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 3.4076e-04
+
+Epoch 00355: loss did not improve from 0.00657
+Epoch 356/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0074 - cov_loss: 2.8740e-04
+
+Epoch 00356: loss did not improve from 0.00657
+Epoch 357/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.8920e-04
+
+Epoch 00357: loss did not improve from 0.00657
+Epoch 358/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0070 - cov_loss: 3.0214e-04
+
+Epoch 00358: loss did not improve from 0.00657
+Epoch 359/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 4.2144e-04
+
+Epoch 00359: loss did not improve from 0.00657
+Epoch 360/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 3.6353e-04
+
+Epoch 00360: loss did not improve from 0.00657
+Epoch 361/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 3.1874e-04
+
+Epoch 00361: loss did not improve from 0.00657
+Epoch 362/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0066 - cov_loss: 3.0742e-04
+
+Epoch 00362: loss did not improve from 0.00657
+Epoch 363/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0073 - cov_loss: 4.0453e-04
+
+Epoch 00363: loss did not improve from 0.00657
+Epoch 364/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 4.0939e-04
+
+Epoch 00364: loss did not improve from 0.00657
+Epoch 365/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0070 - cov_loss: 3.3765e-04
+
+Epoch 00365: loss did not improve from 0.00657
+Epoch 366/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 4.2434e-04
+
+Epoch 00366: loss did not improve from 0.00657
+Epoch 367/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.8691e-04
+
+Epoch 00367: loss did not improve from 0.00657
+Epoch 368/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0069 - cov_loss: 3.5165e-04
+
+Epoch 00368: loss did not improve from 0.00657
+Epoch 369/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0070 - cov_loss: 3.7810e-04
+
+Epoch 00369: loss did not improve from 0.00657
+Epoch 370/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.3810e-04
+
+Epoch 00370: loss did not improve from 0.00657
+Epoch 371/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.9700e-04
+
+Epoch 00371: loss did not improve from 0.00657
+Epoch 372/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0072 - cov_loss: 3.3233e-04
+
+Epoch 00372: loss did not improve from 0.00657
+Epoch 373/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 4.4673e-04
+
+Epoch 00373: loss did not improve from 0.00657
+Epoch 374/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 2.8173e-04
+
+Epoch 00374: loss did not improve from 0.00657
+Epoch 375/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0064 - cov_loss: 2.3377e-04
+
+Epoch 00375: loss improved from 0.00657 to 0.00638, saving model to ./model_pca_ae.hdf5
+Epoch 376/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0066 - cov_loss: 3.2938e-04
+
+Epoch 00376: loss did not improve from 0.00638
+Epoch 377/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.4320e-04
+
+Epoch 00377: loss did not improve from 0.00638
+Epoch 378/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0064 - cov_loss: 2.9334e-04
+
+Epoch 00378: loss did not improve from 0.00638
+Epoch 379/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 3.8281e-04
+
+Epoch 00379: loss did not improve from 0.00638
+Epoch 380/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.7944e-04
+
+Epoch 00380: loss did not improve from 0.00638
+Epoch 381/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0074 - cov_loss: 3.2696e-04
+
+Epoch 00381: loss did not improve from 0.00638
+Epoch 382/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0065 - cov_loss: 2.9028e-04
+
+Epoch 00382: loss did not improve from 0.00638
+Epoch 383/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 2.7555e-04
+
+Epoch 00383: loss did not improve from 0.00638
+Epoch 384/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 4.2619e-04
+
+Epoch 00384: loss did not improve from 0.00638
+Epoch 385/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 3.6699e-04
+
+Epoch 00385: loss did not improve from 0.00638
+Epoch 386/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0074 - cov_loss: 3.7766e-04
+
+Epoch 00386: loss did not improve from 0.00638
+Epoch 387/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 4.1985e-04
+
+Epoch 00387: loss did not improve from 0.00638
+Epoch 388/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.7483e-04
+
+Epoch 00388: loss did not improve from 0.00638
+Epoch 389/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 4.9827e-04
+
+Epoch 00389: loss did not improve from 0.00638
+Epoch 390/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.2619e-04
+
+Epoch 00390: loss did not improve from 0.00638
+Epoch 391/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 3.3320e-04
+
+Epoch 00391: loss did not improve from 0.00638
+Epoch 392/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.9798e-04
+
+Epoch 00392: loss did not improve from 0.00638
+Epoch 393/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.2684e-04
+
+Epoch 00393: loss did not improve from 0.00638
+Epoch 394/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0071 - cov_loss: 3.2211e-04
+
+Epoch 00394: loss did not improve from 0.00638
+Epoch 395/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0069 - cov_loss: 3.9475e-04
+
+Epoch 00395: loss did not improve from 0.00638
+Epoch 396/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.6011e-04
+
+Epoch 00396: loss did not improve from 0.00638
+Epoch 397/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0066 - cov_loss: 3.0103e-04
+
+Epoch 00397: loss did not improve from 0.00638
+Epoch 398/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0070 - cov_loss: 3.2248e-04
+
+Epoch 00398: loss did not improve from 0.00638
+Epoch 399/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.7175e-04
+
+Epoch 00399: loss did not improve from 0.00638
+Epoch 400/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.6359e-04
+
+Epoch 00400: loss did not improve from 0.00638
+
+Epoch 00400: ReduceLROnPlateau reducing learning rate to 1.5625000742147677e-05.
+Epoch 401/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 3.0977e-04
+
+Epoch 00401: loss did not improve from 0.00638
+Epoch 402/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.2177e-04
+
+Epoch 00402: loss did not improve from 0.00638
+Epoch 403/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0067 - cov_loss: 3.4239e-04
+
+Epoch 00403: loss did not improve from 0.00638
+Epoch 404/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 2.8264e-04
+
+Epoch 00404: loss did not improve from 0.00638
+Epoch 405/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0065 - cov_loss: 3.5843e-04
+
+Epoch 00405: loss did not improve from 0.00638
+Epoch 406/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0066 - cov_loss: 3.1206e-04
+
+Epoch 00406: loss did not improve from 0.00638
+Epoch 407/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.7242e-04
+
+Epoch 00407: loss did not improve from 0.00638
+Epoch 408/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.3691e-04
+
+Epoch 00408: loss did not improve from 0.00638
+Epoch 409/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0072 - cov_loss: 4.1518e-04
+
+Epoch 00409: loss did not improve from 0.00638
+Epoch 410/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.5052e-04
+
+Epoch 00410: loss did not improve from 0.00638
+Epoch 411/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 3.4898e-04
+
+Epoch 00411: loss did not improve from 0.00638
+Epoch 412/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0073 - cov_loss: 3.7305e-04
+
+Epoch 00412: loss did not improve from 0.00638
+Epoch 413/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0070 - cov_loss: 3.9494e-04
+
+Epoch 00413: loss did not improve from 0.00638
+Epoch 414/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0071 - cov_loss: 3.8681e-04
+
+Epoch 00414: loss did not improve from 0.00638
+Epoch 415/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0065 - cov_loss: 3.7748e-04
+
+Epoch 00415: loss did not improve from 0.00638
+Epoch 416/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 2.7916e-04
+
+Epoch 00416: loss did not improve from 0.00638
+Epoch 417/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0065 - cov_loss: 3.7581e-04
+
+Epoch 00417: loss did not improve from 0.00638
+Epoch 418/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.0964e-04
+
+Epoch 00418: loss did not improve from 0.00638
+Epoch 419/1000
+32/32 [==============================] - 1s 24ms/step - loss: 0.0068 - cov_loss: 3.7866e-04
+
+Epoch 00419: loss did not improve from 0.00638
+Epoch 420/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.1789e-04
+
+Epoch 00420: loss did not improve from 0.00638
+Epoch 421/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.4017e-04
+
+Epoch 00421: loss did not improve from 0.00638
+Epoch 422/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0068 - cov_loss: 2.9931e-04
+
+Epoch 00422: loss did not improve from 0.00638
+Epoch 423/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0069 - cov_loss: 3.3014e-04
+
+Epoch 00423: loss did not improve from 0.00638
+Epoch 424/1000
+32/32 [==============================] - 1s 23ms/step - loss: 0.0068 - cov_loss: 3.9924e-04
+
+Epoch 00424: loss did not improve from 0.00638
+Epoch 425/1000
+32/32 [==============================] - 1s 22ms/step - loss: 0.0067 - cov_loss: 3.9655e-04
+
+Epoch 00425: loss did not improve from 0.00638
+
+Epoch 00425: ReduceLROnPlateau reducing learning rate to 1e-05.
+Epoch 00425: early stopping
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="check-the-results">
+<h3>Check the results<a class="headerlink" href="#check-the-results" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pca_ae_model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;model_pca_ae.hdf5&#39;</span><span class="p">,</span>
+                                       <span class="n">custom_objects</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;LatentCovarianceLayer&quot;</span><span class="p">:</span> <span class="n">LatentCovarianceLayer</span><span class="p">})</span>
+<span class="n">pca_ae_decoder</span> <span class="o">=</span> <span class="n">pca_ae_model</span><span class="o">.</span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">img</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="mi">1430</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+<span class="n">img_rec</span> <span class="o">=</span> <span class="n">pca_ae_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span><span class="o">...</span><span class="p">])</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_rec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pca_ae_rotation_14_0.png" src="../_images/pca_ae_rotation_14_0.png" />
+</div>
+</div>
+<p>The reconstruction quality hasn’t significantly improved from using only 2 latent codes. This could however be caused by the relatively shallow decoder.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,]</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)):</span>
+    <span class="n">img_dec</span> <span class="o">=</span> <span class="n">pca_ae_decoder</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_dec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;z=(</span><span class="si">{</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, 0, 0)&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)):</span>
+    <span class="n">img_dec</span> <span class="o">=</span> <span class="n">pca_ae_decoder</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">]])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_dec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;z=(0, </span><span class="si">{</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, 0)&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">),</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">vals</span><span class="p">)):</span>
+    <span class="n">img_dec</span> <span class="o">=</span> <span class="n">pca_ae_decoder</span><span class="o">.</span><span class="n">predict</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]]])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img_dec</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">...</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;z=(0, 0, </span><span class="si">{</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pca_ae_rotation_16_0.png" src="../_images/pca_ae_rotation_16_0.png" />
+<img alt="../_images/pca_ae_rotation_16_1.png" src="../_images/pca_ae_rotation_16_1.png" />
+<img alt="../_images/pca_ae_rotation_16_2.png" src="../_images/pca_ae_rotation_16_2.png" />
+</div>
+</div>
+<p>One could see a separation of the 3 variables (size, axes, rotation) among the 3 latent codes, as reported by the authors (using the hierarchical method on top of covariance loss). However, it’s not as “clean-cut” as demonstrated in Part 1 with only two variables (size and axes). For instance, remnant of rotation can be recognized in the top and middle rows as well.</p>
+<p>Finally, we can check how fast the covariance loss term gets minimized relatively to the MSE.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;loss&#39;</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;cov_loss&#39;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/pca_ae_rotation_18_0.png" src="../_images/pca_ae_rotation_18_0.png" />
+</div>
+</div>
+<p>Interestingly, covariance loss diminishes faster during training. I got a similar result even with <span class="math notranslate nohighlight">\(\lambda\)</span> ranging from 0.1 to 10. I wonder if a much deeper autoencoder would further reduce both losses. I may come back to this in the future again.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./ml"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="pca_ae.html" title="previous page">PCA Autoencoder (Part 1)</a>
+    <a class='right-next' id="next-link" href="../finance/portfolio_management.html" title="next page">Portfolio Management</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Zhiyao Yin<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>
