@@ -4,7 +4,8 @@ As a necessity of analyzing experimental data taken in turbulent flows, I have b
 
 ## Table of Content
 
-| Initiated | Title                                             |
-| --------- | ------------------------------------------------- |
-| 05.2021   | [PCA Autoencoder (Part 1)](pca_ae.ipynb)          |
-| 06.2021   | [PCA Autoencoder (Part 2)](pca_ae_rotation.ipynb) |
+| Initiated | Title                                                                            | Note                |
+| --------- | -------------------------------------------------------------------------------- | ------------------- |
+| 05.2021   | [PCA Autoencoder (Part 1): Binary Ellipses](pca_ae.ipynb)                        | with 2 latent codes |
+| 06.2021   | [PCA Autoencoder (Part 2): Binary Ellipses with rotation](pca_ae_rotation.ipynb) | with 3 latent codes |
+| 06.2021   | [PCA Autoencoder (Part 3): Hierarchy](pca_ae_hierarchy.ipynb)                    | with 1 sub-networks |

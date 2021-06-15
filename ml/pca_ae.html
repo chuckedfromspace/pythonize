@@ -147,6 +147,11 @@
      PCA Autoencoder (Part 2)
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pca_ae_hierarchy.html">
+     PCA Autoencoder (Part 3)
+    </a>
+   </li>
   </ul>
   <i class="fas fa-chevron-down">
   </i>
@@ -266,6 +271,11 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#synthesize-dataset">
    Synthesize dataset
   </a>
@@ -337,6 +347,8 @@
                 
   <div class="section" id="pca-autoencoder-part-1">
 <h1>PCA Autoencoder (Part 1)<a class="headerlink" href="#pca-autoencoder-part-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>An <a class="reference external" href="https://arxiv.org/abs/1904.01277">interesting work</a> by Ladjal et al on autoencoders has been brought to my attention by one of my colleagues, as we are trying to leverage the nonlinearity of autoencoders to better decompose complex turbulent reacting flows. As stated in the abstract, the main goal was to improve the interpretability of autoencoder by (1) constructing the latent space of the autoencoder with independent components that are (2) ordered by decreasing importance to the data (both are automatically achieved with a linear Principal Component Analysis). To achieve (1), the authors proposed to minimize the covariance of the latent codes alongside the standard loss function. The covariance term can be written as (based on Eq.1 in the paper):</p>
 <div class="math notranslate nohighlight">
 \[
@@ -348,6 +360,7 @@
 <li><p>Second, add the rest of the covariance term to the total loss</p></li>
 </ul>
 <p>I will attempt to reproduce some of the key results presented in the paper in a two-part series using TensorFlow. In this notebook, I will focus on implementing the new loss function, utilizing the <code class="docutils literal notranslate"><span class="pre">.add_loss()</span></code> method in custom layers in TensorFlow.  In the second part, I will look at how to achieve a hiearchichal latent space with the iterations the authors described. I will refer to the architecture as <strong>PCA autoencoder</strong>, a term given by the authors in their paper.</p>
+</div>
 <div class="section" id="synthesize-dataset">
 <h2>Synthesize dataset<a class="headerlink" href="#synthesize-dataset" title="Permalink to this headline">¶</a></h2>
 <p>In this notebook, I will just try to recreate the set of binary ellipses with only two variables (two variables) and leave out the rotation for the time being.</p>
