@@ -15,6 +15,7 @@
     sections:
       - file: ml/pca_ae
       - file: ml/pca_ae_rotation
+      - file: ml/pca_ae_hierarchy
 
 - part: Finance
   chapters:
