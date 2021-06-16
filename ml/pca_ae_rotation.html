@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PCA Autoencoder (Part 2) &#8212; Pythonize Data Crunching and Visualization</title>
+    <title>Part 2: PCA Autoencoder (continued) &#8212; Pythonize Data Crunching and Visualization</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -59,8 +59,8 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PCA Autoencoder (Part 3)" href="pca_ae_hierarchy.html" />
-    <link rel="prev" title="PCA Autoencoder (Part 1)" href="pca_ae.html" />
+    <link rel="next" title="Part 3: Hierarchical PCA Autoencoder" href="pca_ae_hierarchy.html" />
+    <link rel="prev" title="Part 1: PCA Autoencoder" href="pca_ae.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -103,7 +103,7 @@
 <ul class="nav sidenav_l1">
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../fluids/flow_field_vis.html">
-   Flow Field Visualization
+   Flow Field Visualization: PVC
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -134,22 +134,27 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active collapsible-parent">
   <a class="reference internal" href="pattern_recognition.html">
-   Pattern Recognition
+   Pattern Recognition with Autoencoders: Binary Ellipses
   </a>
   <ul class="current collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="pca_ae.html">
-     PCA Autoencoder (Part 1)
+     Part 1: PCA Autoencoder
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     PCA Autoencoder (Part 2)
+     Part 2: PCA Autoencoder (continued)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="pca_ae_hierarchy.html">
-     PCA Autoencoder (Part 3)
+     Part 3: Hierarchical PCA Autoencoder
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pca_ae_hierarchy_rotation.html">
+     Part 4: Hierarchical PCA Autoencoder (continued)
     </a>
    </li>
   </ul>
@@ -315,8 +320,8 @@
         
               <div>
                 
-  <div class="section" id="pca-autoencoder-part-2">
-<h1>PCA Autoencoder (Part 2)<a class="headerlink" href="#pca-autoencoder-part-2" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="part-2-pca-autoencoder-continued">
+<h1>Part 2: PCA Autoencoder (continued)<a class="headerlink" href="#part-2-pca-autoencoder-continued" title="Permalink to this headline">¶</a></h1>
 <p>In this second part, we will look at a similar dataset of ellipses but with added rotation. The number of latent codes will be increased to 3. The custom layer for computing covariance loss will be adapted to account for three codes. The method used here will deviate from the original paper, since I won’t be introducing the hierarchical autoencoders just yet. Instead, I will just rely solely on the covariance loss to make the latent codes distinct from each other. The goal is to have them each capture a single degree of freedom (width, height and rotation).</p>
 <div class="section" id="synthesize-dataset">
 <h2>Synthesize dataset<a class="headerlink" href="#synthesize-dataset" title="Permalink to this headline">¶</a></h2>
@@ -2321,8 +2326,8 @@ Epoch 00425: early stopping
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="pca_ae.html" title="previous page">PCA Autoencoder (Part 1)</a>
-    <a class='right-next' id="next-link" href="pca_ae_hierarchy.html" title="next page">PCA Autoencoder (Part 3)</a>
+    <a class='left-prev' id="prev-link" href="pca_ae.html" title="previous page">Part 1: PCA Autoencoder</a>
+    <a class='right-next' id="next-link" href="pca_ae_hierarchy.html" title="next page">Part 3: Hierarchical PCA Autoencoder</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

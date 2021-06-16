@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pattern Recognition &#8212; Pythonize Data Crunching and Visualization</title>
+    <title>Pattern Recognition with Autoencoders: Binary Ellipses &#8212; Pythonize Data Crunching and Visualization</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -59,7 +59,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="PCA Autoencoder (Part 1)" href="pca_ae.html" />
+    <link rel="next" title="Part 1: PCA Autoencoder" href="pca_ae.html" />
     <link rel="prev" title="References" href="../fluids/refs_f.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,7 +103,7 @@
 <ul class="nav sidenav_l1">
  <li class="toctree-l1 collapsible-parent">
   <a class="reference internal" href="../fluids/flow_field_vis.html">
-   Flow Field Visualization
+   Flow Field Visualization: PVC
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
@@ -134,22 +134,27 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active collapsible-parent">
   <a class="current reference internal" href="#">
-   Pattern Recognition
+   Pattern Recognition with Autoencoders: Binary Ellipses
   </a>
   <ul class="collapse-ul">
    <li class="toctree-l2">
     <a class="reference internal" href="pca_ae.html">
-     PCA Autoencoder (Part 1)
+     Part 1: PCA Autoencoder
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="pca_ae_rotation.html">
-     PCA Autoencoder (Part 2)
+     Part 2: PCA Autoencoder (continued)
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="pca_ae_hierarchy.html">
-     PCA Autoencoder (Part 3)
+     Part 3: Hierarchical PCA Autoencoder
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="pca_ae_hierarchy_rotation.html">
+     Part 4: Hierarchical PCA Autoencoder (continued)
     </a>
    </li>
   </ul>
@@ -286,8 +291,8 @@
         
               <div>
                 
-  <div class="section" id="pattern-recognition">
-<h1>Pattern Recognition<a class="headerlink" href="#pattern-recognition" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="pattern-recognition-with-autoencoders-binary-ellipses">
+<h1>Pattern Recognition with Autoencoders: Binary Ellipses<a class="headerlink" href="#pattern-recognition-with-autoencoders-binary-ellipses" title="Permalink to this headline">¶</a></h1>
 <p>As a necessity of analyzing experimental data taken in turbulent flows, I have been working with various analytical and numerical tools for extracting important flow patterns. The most common one I use is Proper Orthogonal Decomposition (POD), also known as Principal Component Analysis (PCA) in Machine Learning.  Besides dimensional reduction, POD/PCA works great for extracting abstract representations of so-called coherent structures in the flow field that fluctuate periodically in a way resembling harmonic motions. However, due to its linear nature, POD/PCA is not always capable or efficient at capturing non-linear flow phenomena that are sporadic and chaotic. Increasingly, neural-network based unsupervised (or self-supervised) methods such as autoencoder have been adapted to tackle these problems in the field of fluid dynamics.</p>
 <div class="section" id="table-of-content">
 <h2>Table of Content<a class="headerlink" href="#table-of-content" title="Permalink to this headline">¶</a></h2>
@@ -308,8 +313,12 @@
 <td><p>with 3 latent codes</p></td>
 </tr>
 <tr class="row-even"><td><p>06.2021</p></td>
-<td><p><a class="reference internal" href="pca_ae_hierarchy.html"><span class="doc std std-doc">PCA Autoencoder (Part 3): Hierarchy</span></a></p></td>
-<td><p>with 1 sub-networks</p></td>
+<td><p><a class="reference internal" href="pca_ae_hierarchy.html"><span class="doc std std-doc">PCA Autoencoder (Part 3): Hierarchy treatment (without rotation)</span></a></p></td>
+<td><p>with 2 sub-networks</p></td>
+</tr>
+<tr class="row-odd"><td><p>06.2021</p></td>
+<td><p><a class="reference internal" href="pca_ae_hierarchy_rotation.html"><span class="doc std std-doc">PCA Autoencoder (Part 4): Hierarchy treatment (with rotation)</span></a></p></td>
+<td><p>with 3 sub-networks</p></td>
 </tr>
 </tbody>
 </table>
@@ -347,7 +356,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="../fluids/refs_f.html" title="previous page">References</a>
-    <a class='right-next' id="next-link" href="pca_ae.html" title="next page">PCA Autoencoder (Part 1)</a>
+    <a class='right-next' id="next-link" href="pca_ae.html" title="next page">Part 1: PCA Autoencoder</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
