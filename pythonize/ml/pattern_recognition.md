@@ -10,3 +10,4 @@ As a necessity of analyzing experimental data taken in turbulent flows, I have b
 | 06.2021   | [PCA Autoencoder (Part 2): Binary Ellipses with rotation](pca_ae_rotation.ipynb)                 | with 3 latent codes |
 | 06.2021   | [PCA Autoencoder (Part 3): Hierarchy treatment (without rotation)](pca_ae_hierarchy.ipynb)       | with 2 sub-networks |
 | 06.2021   | [PCA Autoencoder (Part 4): Hierarchy treatment (with rotation)](pca_ae_hierarchy_rotation.ipynb) | with 3 sub-networks |
+| 06.2021   | [PCA Autoencoder (Part 5): PCA/POD](pca_rotation.ipynb)                                          | Eigendecomposition  |
