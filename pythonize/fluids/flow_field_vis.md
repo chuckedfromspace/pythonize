@@ -1,4 +1,4 @@
-# Flow Field Visualization
+# Flow Field Visualization: PVC
 
 As one of my research focuses, I work extensively with experimental and
 analytical methods for visualizing and understanding turbulent (reacting)
@@ -10,7 +10,7 @@ This chapter will focus on how to synthesize typical flow field dynamics. In [Pa
 
 ## Table of Content
 
-| Initiated | Title                                           |
-| --------- | ----------------------------------------------- |
-| 02.2021   | [Precessing Vortex Core (Part 1)](pvc_p1.ipynb) |
-| 02.2021   | [Precessing Vortex Core (Part 2)](pvc_p2.ipynb) |
+| Initiated | Title                                           | Note                        |
+| --------- | ----------------------------------------------- | --------------------------- |
+| 02.2021   | [Precessing Vortex Core (Part 1)](pvc_p1.ipynb) | Synthesize PVC              |
+| 02.2021   | [Precessing Vortex Core (Part 2)](pvc_p2.ipynb) | PVC influence on mean field |
