@@ -366,7 +366,8 @@
                 
   <div class="section" id="part-3-hierarchical-pca-autoencoder">
 <h1>Part 3: Hierarchical PCA Autoencoder<a class="headerlink" href="#part-3-hierarchical-pca-autoencoder" title="Permalink to this headline">¶</a></h1>
-<p>In this notebook, I will attempt to implement the hierarchical structure the authors adopted to mimic the function of PCA (see the <a class="reference internal" href="pca_ae.html"><span class="doc std std-doc">introduction in Part 1</span></a>). The trick is to use subnetworks that train one single latent code at a time (while the rest are “fixed”) and stack them sequentially together to train new decoders.</p>
+<p>In this notebook, I will attempt to implement the hierarchical structure the authors adopted to mimic the function of PCA (see the <a class="reference internal" href="pca_ae.html"><span class="doc std std-doc">introduction in Part 1</span></a>). The trick is to use subnetworks that train one single latent code at a time (while the rest are “fixed”) and stack them sequentially together to train new decoders. This process is depicted in the sketch below:</p>
+<p><img alt="pca ae structure" src="../_images/pca_ae.png" /></p>
 <div class="section" id="synthesize-dataset">
 <h2>Synthesize dataset<a class="headerlink" href="#synthesize-dataset" title="Permalink to this headline">¶</a></h2>
 <p>To test the validity of the method, I will create the set of binary ellipses with only two variables (size and axes).</p>
