@@ -362,7 +362,7 @@
 <p>An <a class="reference external" href="https://arxiv.org/abs/1904.01277">interesting work</a> by Ladjal et al on autoencoders has been brought to my attention by one of my colleagues, as we are trying to leverage the nonlinearity of autoencoders to better decompose complex turbulent reacting flows. As stated in the abstract, the main goal was to improve the interpretability of autoencoder by (1) constructing the latent space of the autoencoder with independent components that are (2) ordered by decreasing importance to the data (both are automatically achieved with a linear Principal Component Analysis). To achieve (1), the authors proposed to minimize the covariance of the latent codes alongside the standard loss function. The covariance term can be written as (based on Eq.1 in the paper):</p>
 <div class="math notranslate nohighlight">
 \[
-\Lambda_{conv}(X)=\lambda\sum_{i=1}^{k-1}\left[\frac{1}{M}\sum_{j=1}^{M}\left(z_i^jz_k^j\right) - \frac{1}{M^2}\sum_{j=1}^{M}\left(z_i^j\right)\sum_{j=1}^{M}\left(z_k^j\right)\right]
+\Lambda_{cov}(X)=\lambda\sum_{i=1}^{k-1}\left[\frac{1}{M}\sum_{j=1}^{M}\left(z_i^jz_k^j\right) - \frac{1}{M^2}\sum_{j=1}^{M}\left(z_i^j\right)\sum_{j=1}^{M}\left(z_k^j\right)\right]
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(M\)</span> is the batch size, <span class="math notranslate nohighlight">\(z_i\)</span> the code in the latent space. The authors introduced two modifications to a conventional CNN-based autoencoder to implement this loss function:</p>
 <ul class="simple">
